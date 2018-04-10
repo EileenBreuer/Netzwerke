@@ -1,0 +1,90 @@
+#I-Graph Installation
+install.packages("igraph")
+# installiert das Paket igraph
+install.packages("igraphdata")
+# installiert das Paket igraphdata
+
+library("igraph")
+# lädt das Paket "igraph" zum Verwenden
+
+?igraph
+# liefert die Hilfefunktion für igraph
+
+#########################################################
+#WICHTIG: Immer nur eines von beiden runnen: Wenn das Unterstützer-Netzwerk erstellt werden soll, immer nur die erste Zeile des jeweiligen Befehls runnen, wenn das Mannschaftsnetzwerk erstellt werden soll,immer die zweite Zeile.
+#I-Graph-Objekt erstellen
+support <- read.csv("EdgelistMenSupport.csv", header=T, as.is=T, sep = ",")
+favfriend <- read.csv("EdgelistMenFavFriend.csv", header=T, as.is=T, sep = ",")
+# lädt die edgelist aus der Datei in der working directory. Auf Trennzeichen achten!
+
+nodes <- read.csv("NodelistMenSupport.csv", header=T, as.is=T, sep = ",")
+nodes <- read.csv("NodelistMenFavFriend.csv", header=T, as.is=T, sep = ",")
+# lädt die Nodelist aus der working direcotry
+
+head(support)
+head(favfriend)
+# überprüfen von Edge- und Nodelist in R
+
+hties <-as.matrix(support)
+wties <-as.matrix(favfriend)
+# Umwandlung der Edgelist in eine Matrix
+
+support <- graph_from_data_frame(d=hties, vertices=nodes, directed=T)
+favfriend <- graph_from_data_frame(d=wties, vertices=nodes, directed=T)
+# Kombination der Edge- und Nodelist in ein igraph-Objekt
+
+support #zeigt das igraph-Objekt an
+favfriend #zeigt das irgraph-Objekt an
+
+edge_attr(support)
+edge_attr(favfriend)
+# zeigt die Verteilung des Attributs "weight" an.
+
+vertex_attr(support)
+vertex_attr(favfriend)
+# zeigt die Verteilung der Vertex-Attribute an.
+
+class(help)#Test, ob ein igraph-Objekt vorliegt
+
+#Visualisierung
+
+E(support)$color="black"
+plot(support,layout=layout_with_kk, edge.arrow.size=0.2, edge.curved=0.2,)
+
+colrs <- c("red", "black") #c definiert Farbenvektor
+#definiert das Farbspektrum, der verwendeten Farben und legt diese in einem neuen Vector colrs fest. Da wir wissen, dass wir bei §sex nur zwei Werte haben (männlich, weiblich) brauchen wir auch zwei Werte. Die direkten Farbpaletten sind hier hinterlegt: http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf.
+E(favfriend)$color <- colrs[E(favfriend)$favorite]
+# weist dem Vertex-Attribut color die Funktion colrs zu, die wir vorher mit zwei Farben definiert haben.
+plot(favfriend,layout=layout_with_kk, edge.arrow.size=0.2, edge.curved=0.2,)
+
+E(favfriend)$ color="black"
+
+#einfache Visualisierung
+plot(support, layout = layout_with_kk, edge.arrow.size=0.2, edge.curved=0.2, main = "Beziehungsnetzwer Männermannschaft")
+plot(favfriend, layout = layout_with_kk, edge.arrow.size=0.2, edge.curved=0.2, main = "Netzwerk Männermannschaft")
+
+############################################
+#Gesamtnetzwerk erstellen->FavFriend und Support zusammen in einem
+
+m<-support+favfriend #erstellte Teilnetzwerke einfach addieren
+plot(m)
+
+############################################
+# Ego Netzwerke der stark und wenig unterstützten Spieler erstellen
+
+me <- subgraph<-make_ego_graph(m, order=1, c("Ruben Hihn")) 
+me
+plot(me[[1]], edge.arrow.size=.1)
+
+mk<- subgraph<-make_ego_graph(m, order=1, c("Nico Hihn")) 
+mk
+plot(mk[[1]], edge.arrow.size=.1)#erstellt Egonetzwerk von Knoten mit ID 18, zeigt alle Knoten an, die innerhalb eines Schrittes mit 18 verbunden sind
+
+mm <- subgraph<-make_ego_graph(m, order=1, c("Ferdinand Gerstenberger")) 
+mm
+plot(mm[[1]], edge.arrow.size=.1)
+
+mb <- subgraph<-make_ego_graph(m, order=1, c("Constantin Munz")) 
+mb
+plot(mb[[1]], edge.arrow.size=.1)
+####
