@@ -1,0 +1,20 @@
+id,name,sex,club,duration,previous,reason,position,shirtnumber,time,motherland,grown,residence,religion,age,living,education,job
+SpielerA,Max Stierle,m,SVM,2,1,Trainer,1,4,8,Deutschland,Deutschland,Ludwigsburg,a,4,Eltern,Abitur,Student
+SpielerB,Constantin Munz,m,SVM,4,1,Weiterentwicklung,4,15,8,Deutschland,Deutschland,Stuttgart,k,5,alleine,Abitur,Student
+SpielerC,Zagros Norouzian,m,SVM,5,1,Niveau,1,11,,Deutschland,Deutschland,Stuttgart,a,3,Eltern,MittlereReife,FSJ
+SpielerD,Pius Weller,m,SVM,5,0,NA,4,12,9,Deutschland,Deutschland,Stuttgart,k,5,Eltern,Abitur,Ausbildung
+SpielerE,Ruben Hihn,m,SVM,6,1,Umzug,4,20,7,Deutschland,Deutschland,Stuttgart,n,4,WG,Abitur,Student
+SpielerF,Jacob Nägele,m,SVM,6,1,Studium,4,6,6,Deutschland,Deutschland,Stuttgart,k,6,Partner,Studium,JuniorSalesmanager
+SpielerG,Darly Ifuly,m,SMV,2,1,Niveau,1,14,7,Frankreich,Deutschland,Stuttgart,a,6,allein,Studium,PflegeGesundheitsmanager
+SpielerH,Hugo Mounier,m,SMV,4,1,Trainer,5,2,8,USA,Deutschland,Stuttgart,k,3,Eltern,MittlereReife,Schueler
+SpielerI,Dino Begagic,m,SMV,2,1,Umzug,2,9,4,Bosnien-Herzegowina,Bosnien-Herzegowina,Stuttgart,m,6,Partner,Hauptschulabschluss,GesundheitsKrankenpfleger
+SpielerJ,Costa,m,SMV,NA,NA,NA,5,14,NA,NA,NA,NA,NA,NA,NA,NA,NA
+SpielerK,Nico Hihn,m,SVM,6,1,Niveau,1,5,8,Deutschland,Deutschland,Stuttgart,n,4,WG,MittlereReife,Auszubildender
+SpielerL,Petros Tzikas,m,SVM,6,1,Lage,4,7,8,Deutschland,Deutschland,Sindelfingen,g,6,Partnerin,Fachhochschulreife,Bankkaufmann
+SpielerM,Ferdinand Gerstenberger,m,SVM,2,1,Umzug,3,14,8,Deutschland,Deutschland,Stuttgart,e,5,WG,Abitur,Student
+SpielerN,Daniel Grieb,m,SVM,4,0,NA,1,13,8,Deutschland,Deutschland,Stuttgart,e,3,Eltern,MittlereReife,Schueler
+SpielerO,Tobias Heintzen,m,SVM,NA,NA,NA,1,8,NA,NA,NA,NA,NA,5,NA,NA,NA
+Bekannter19,Sascha Teammanager,m,SVM,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Filderstadt,e,7,NA,Studium,Marketing
+Bekannter20,Daniel ehemaliger Vorstand,m,SVM,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Bekannter21,Alexander ehemaliger Spieler,m,SVM,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Trainer,Trainer,m,SMV,NA,NA,NA,NA,NA,NA,Bosnien-Herzegowina,Bosnien-Herzegowina,Stuttgart,k,8,NA,Studium,Immobilienmakler

@@ -1,0 +1,13 @@
+id,name,sex,club,duration,previous,reason,position,shirtnumber,time,motherland,grown,residence,religion,age,living,education,job
+Spielerin1,Jota,w,SVM,6,1,Job,4,9,9,Deutschland,Deutschland,Filderstadt,go,7,allein,MittlereReife,Fitnesstrainerin
+Spielerin2,Josipa Simic,w,SVM,2,1,Weiterentwicklung Mitspieler,4,17,9,Deutschland,Deutschland,Sindelfingen,k,7,Partner,Studium,Zahnaerztin
+Spielerin3,Barbara List,w,SVM,4,1,Umzug,5,15,9,Deutschland,Deutschland,Stuttgart,e,6,WG,Studium,Masterstudentin
+Spielerin4,Sabrina Lehrer,w,SVM,6,0,NA,2,12,8,Deutschland,Deutschland,Stuttgart,e,6,Partner,Studium,Softwareentwicklerin
+Spielerin5,Rebecca Dahm,w,SVM,3,1,Lage,4,11,8,Deutschland,Deutschland,Stuttgart,k,6,WG,Abitur,Studentin
+Spielerin6,Constanze Schmalzing,w,SVM,6,0,NA,5,14,8,Deutschland,Deutschland,Stuttgart,e,6,Partner,Studium,Logistik
+Spielerin7,Aleesha Tzikas,w,SVM,NA,NA,NA,1,6,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Spielerin8,Anna-Maria Stock,w,SVM,6,1,Mitspieler,1,15,8,Deutschland,Deutschland,Stuttgart,k,6,Partner,Studium,Personalreferentin
+Spielerin9,Franziska Kott,w,SVM,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,8,NA,NA,NA
+Spielerin10,Sandra Süßmuth,w,SVM,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6,NA,NA,NA
+Spielerin11,Elisa Wendt,w,SVM,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,6,NA,NA,NA
+Spielerin12,Leni Niessen,w,SVM,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,5,NA,NA,NA
