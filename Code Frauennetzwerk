@@ -1,0 +1,143 @@
+# von Anna von Teuffel 04.04.
+
+# I-Graph Installation
+install.packages("igraph")
+# installiert das Paket igraph
+install.packages("igraphdata")
+# installiert das Paket igraphdata
+
+library("igraph")
+# lädt das Paket "igraph" zum Verwenden
+
+?igraph
+# liefert die Hilfefunktion für igraph
+
+###
+
+# Unterstützernetzwerk
+support <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/Edgelist%20Frauen%20Support.csv", header=T, as.is=T, sep = ",")
+nodes <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/Nodelist%20Frauen%20Support.csv", header=T, as.is=T, sep = ",")
+head(support)
+hties <-as.matrix(support)
+support <- graph_from_data_frame(d=hties, vertices=nodes, directed=T)
+support #zeigt das igraph-Objekt an
+
+# Freundschaftsnetzwerk
+favfriend <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/Edgelist%20Frauen%20FavFriend.csv", header=T, as.is=T, sep = ",")
+nodes <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/Nodelist%20Frauen%20FavFriend.csv", header=T, as.is=T, sep = ",")
+head(favfriend)
+wties <-as.matrix(favfriend)
+favfriend <- graph_from_data_frame(d=wties, vertices=nodes, directed=T)
+favfriend #zeigt das irgraph-Objekt an
+
+# Visualisierung Farben etc. ???
+
+
+# einfache Darstellung der einzelnen Teilnetze
+plot(support, layout = layout_with_kk, edge.arrow.size=0.2, edge.curved=0.2, main = "Beziehungsnetzwer Frauenmannschaft")
+plot(favfriend, layout = layout_with_kk, edge.arrow.size=0.2, edge.curved=0.2, main = "Netzwerk Frauenmannschaft")
+
+# vergleichende Darstellung der beiden Teilnetze
+par(mfrow=c(1,2), mar=c(0,0,2,0))   
+plot(support, layout=layout_nicely, edge.arrow.size=0.2, main="Beziehungsnetzwer Frauenmannschaft - Unterstützer")
+plot(favfriend, layout=layout_nicely, edge.arrow.size=0.2, main="Netzwerk Frauenmannschaft - Freunde")
+
+###
+
+# Gesamtnetzwerk erstellen: FavFriend und Support zusammen in einem Netzwerk
+f <-support+favfriend #erstellte Teilnetzwerke einfach addieren
+# Gesamtnetzwerk darstellen
+plot(f, layout=layout_nicely, edge.arrow.size=0.2, main="Gesamtnetzwerk Frauen")
+
+###
+
+# Plotten der Cluster des Gesamtnetzwerks in Farben 
+gc <- cluster_walktrap(f)
+modularity(gc)
+membership(gc)
+plot(gc, f, edge.arrow.size = 0.2)
+
+### Analyse ### Infos zum Netzwerk
+
+# Anzahl	der	Dyaden im Netzwerk "Frauen"
+dyad.census(f)
+# 5 mutuelle - 55 asymetrische - 606 null
+
+# Anzahl und Art der Triaden im Netzwerk "Frauen" 
+# 34 mal den Out Star 021D und 4 mal eine Linie 021C
+triad_census(f)
+# 003-6468 012-727 102-410 021D-91 021U-5 021C-27 111D-2 111U-34 030T-0 030C-0 201-3 120D-2 120U-1 120C-0 210-0 300-0
+
+#Auflistung der Knoten Attribute 
+vertex_attr(f)
+
+# Anzahl der Componenten: 37
+components(f)
+#sind diese Componenten verbunden? TRUE (ja)
+is_connected(f)
+
+# Durchmesser des Netzwerks: 5 (Schritte maximal von einem zum anderen Ende)
+diameter(f)
+
+# Pfaddistanz des Netzwerks: 2,35 (Schritte durchschnittlich von einem zum anderen Ende)
+mean_distance(f)
+
+# Dichte des Netzwerks: 4 (fast5) (% der Möglichen Beziehungen sind realisiert)
+edge_density(f)
+
+# Anzahl der Cluster: 4 ("Kleingruppen")
+cluster_walktrap(f)
+
+### 
+
+degree(f, mode = "out")
+# Anzeigen der Outdegrees pro Akteur des Netzwerk "Frauen", Rebecca und Sabrina max. Outdegrees
+degree(f, mode="out", normalized = TRUE)
+# Anzeigen der prozentualen (d.h. normalisierten) Outdegrees des Netzwerk "Frauen" an
+
+# der Wert der Zentralisierung, der Closeness und der Betweenness interessiert hier wenig, 
+# da es sich um mehrere Ego Netze handelt, 
+# diese Werte werden im Spielerinnen Netzwerk spannender
+
+###
+
+# Spielerinnen Netzwerk
+
+betweenness(favfriend, directed = TRUE)
+# Spielerin 1 Wert=26 (höchster Wert)
+
+closeness (favfriend, mode ="out")
+# Spielerin 3 Wert=0.024 (höchster Wert)
+
+eigen_centrality(favfriend, directed = TRUE)
+# wie liest man das aus?
+
+###
+
+# Ego Netzwerke der stark und wenig unterstützten Spieler erstellen
+# Sabrina (stark unterstützt) 12out
+fs <- subgraph <- make_ego_graph(f, order=1, c("Sabrina Lehrer")) 
+fs
+plot(fs[[1]], layout=layout_nicely, edge.arrow.size=0.2, main="Ego Spielerin 4")
+
+# Rebecca (stark unterstützt) 12out
+fr <- subgraph <- make_ego_graph(f, order=1, c("Rebecca Dahm")) 
+fr
+plot(fr[[1]], layout=layout_nicely, edge.arrow.size=0.2, main="Ego Spielerin 5")
+
+# Josipa (wenig unterstützt)
+fj <- subgraph <- make_ego_graph(f, order=1, c("Josipa Simic")) 
+fj
+plot(fj[[1]], layout=layout_nicely, edge.arrow.size=0.2, main="Ego Spielerin 2")
+
+# Connie (wenig unterstützt)
+fc <- subgraph <- make_ego_graph(f, order=1, c("Constanze Schmalzing")) 
+fc
+plot(fc[[1]], layout=layout_nicely, edge.arrow.size=0.2, main="Ego Spielerin 6")
+
+# vergleichende Darstellung der vier Frauen
+par(mfrow=c(2,2), mar=c(0,0,2,0))   
+plot(fs[[1]], layout=layout_nicely, edge.arrow.size=0.2, main="Ego Spielerin 4")
+plot(fr[[1]], layout=layout_nicely, edge.arrow.size=0.2, main="Ego Spielerin 5")
+plot(fj[[1]], layout=layout_nicely, edge.arrow.size=0.2, main="Ego Spielerin 2")
+plot(fc[[1]], layout=layout_nicely, edge.arrow.size=0.2, main="Ego Spielerin 6")
