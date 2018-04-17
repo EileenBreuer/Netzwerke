@@ -13,78 +13,223 @@ library("igraph")
 #########################################################
 #WICHTIG: Immer nur eines von beiden runnen: Wenn das Unterstützer-Netzwerk erstellt werden soll, immer nur die erste Zeile des jeweiligen Befehls runnen, wenn das Mannschaftsnetzwerk erstellt werden soll,immer die zweite Zeile.
 #I-Graph-Objekt erstellen
-support <- read.csv("EdgelistMenSupport.csv", header=T, as.is=T, sep = ",")
-favfriend <- read.csv("EdgelistMenFavFriend.csv", header=T, as.is=T, sep = ",")
-# lädt die edgelist aus der Datei in der working directory. Auf Trennzeichen achten!
 
-nodes <- read.csv("NodelistMenSupport.csv", header=T, as.is=T, sep = ",")
-nodes <- read.csv("NodelistMenFavFriend.csv", header=T, as.is=T, sep = ",")
-# lädt die Nodelist aus der working direcotry
+
+#################################
+#####Unterstützernetzwerk Männer
+support <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/EdgelistMenSupport.csv", header=T, as.is=T, sep = ",")
+# lädt die edgelist aus github in der working directory. Auf Trennzeichen achten!
+nodes <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/NodelistMenSupport.csv", header=T, as.is=T, sep = ",")
+# lädt die Nodelist aus github in die working direcotry
 
 head(support)
-head(favfriend)
 # überprüfen von Edge- und Nodelist in R
 
 hties <-as.matrix(support)
-wties <-as.matrix(favfriend)
 # Umwandlung der Edgelist in eine Matrix
 
 support <- graph_from_data_frame(d=hties, vertices=nodes, directed=T)
-favfriend <- graph_from_data_frame(d=wties, vertices=nodes, directed=T)
 # Kombination der Edge- und Nodelist in ein igraph-Objekt
 
 support #zeigt das igraph-Objekt an
-favfriend #zeigt das irgraph-Objekt an
 
 edge_attr(support)
+# zeigt die Verteilung des Attributs "weight" an.
+vertex_attr(support)
+# zeigt die Verteilung der Vertex-Attribute an.
+
+class(help)#Test, ob ein igraph-Objekt vorliegt
+
+
+#Visualisierung Support-Netzwerk#
+
+E(support)$color="black"
+plot(support,layout=layout_with_kk, layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.2,)
+#einfache Visualisierung
+plot(support, layout = layout_with_kk,layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.2, main = "Beziehungsnetzwer Männermannschaft")
+
+
+###############################
+#####Fav/Friend Netzwerk Männer
+favfriend <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/EdgelistMenFavFriend.csv", header=T, as.is=T, sep = ",")
+# lädt die edgelist aus github in der working directory. Auf Trennzeichen achten!
+nodes <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/NodelistMenFavFriend.csv", header=T, as.is=T, sep = ",")
+# lädt die Nodelist aus github in die working direcotry
+
+head(favfriend)
+# überprüfen von Edge- und Nodelist in R
+
+wties <-as.matrix(favfriend)
+# Umwandlung der Edgelist in eine Matrix
+
+favfriend <- graph_from_data_frame(d=wties, vertices=nodes, directed=T)
+# Kombination der Edge- und Nodelist in ein igraph-Objekt
+
+favfriend #zeigt das irgraph-Objekt an
+
 edge_attr(favfriend)
 # zeigt die Verteilung des Attributs "weight" an.
 
-vertex_attr(support)
 vertex_attr(favfriend)
 # zeigt die Verteilung der Vertex-Attribute an.
 
 class(help)#Test, ob ein igraph-Objekt vorliegt
 
-#Visualisierung
-
-E(support)$color="black"
-plot(support,layout=layout_with_kk, edge.arrow.size=0.2, edge.curved=0.2,)
+#Visualisierung Fav/Friend-Netzwerk#
 
 colrs <- c("red", "black") #c definiert Farbenvektor
 #definiert das Farbspektrum, der verwendeten Farben und legt diese in einem neuen Vector colrs fest. Da wir wissen, dass wir bei §sex nur zwei Werte haben (männlich, weiblich) brauchen wir auch zwei Werte. Die direkten Farbpaletten sind hier hinterlegt: http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf.
 E(favfriend)$color <- colrs[E(favfriend)$favorite]
 # weist dem Vertex-Attribut color die Funktion colrs zu, die wir vorher mit zwei Farben definiert haben.
-plot(favfriend,layout=layout_with_kk, edge.arrow.size=0.2, edge.curved=0.2,)
+plot(favfriend,layout=layout_with_kk, layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.2,)
 
 E(favfriend)$ color="black"
 
-#einfache Visualisierung
-plot(support, layout = layout_with_kk, edge.arrow.size=0.2, edge.curved=0.2, main = "Beziehungsnetzwer Männermannschaft")
-plot(favfriend, layout = layout_with_kk, edge.arrow.size=0.2, edge.curved=0.2, main = "Netzwerk Männermannschaft")
+#Einfache Visualisierung
+
+plot(favfriend, layout = layout_with_kk,layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.2, main = "Netzwerk Männermannschaft")
+
+# Analyse des fav/friend-Netzwerks
+
+betweenness(favfriend, directed = TRUE)
+# Nico höchster Wert=35,75(höchster Wert)
+
+closeness (favfriend, mode ="out")
+# Spielerin 3 Wert=0.024 (höchster Wert)
+
+eigen_centrality(favfriend, directed = TRUE)
+# wie liest man das aus?
+
+### Analyse Fav/Friend-Netzwerk
+
+# Anzahl	der	Dyaden im Netzwerk "Fav/Friend-Männer"
+dyad.census(favfriend)
+# 9 mutuelle - 32 asymetrische - 130 null
+
+# Anzahl und Art der Triaden im Netzwerk "Männer" 
+# 34 mal den Out Star 021D und 4 mal eine Linie 021C
+triad_census(favfriend)
+# 003-6468 012-727 102-410 021D-91 021U-5 021C-27 111D-2 111U-34 030T-0 030C-0 201-3 120D-2 120U-1 120C-0 210-0 300-0
+
+#Auflistung der Knoten Attribute 
+vertex_attr(favfriend)
+
+# Anzahl der Componenten: 52
+components(favfriend)
+#sind diese Componenten verbunden? TRUE (ja)
+is_connected(favfriend)
+
+# Durchmesser des Netzwerks: 12 (Schritte maximal von einem zum anderen Ende)
+diameter(favfriend)
+
+# Pfaddistanz des Netzwerks: 2,29 (Schritte durchschnittlich von einem zum anderen Ende)
+mean_distance(favfriend)
+
+# Dichte des Netzwerks: 14% (fast 15) (% der Möglichen Beziehungen sind realisiert)
+edge_density(favfriend)
+
+# Anzahl der Cluster: 4 ("Kleingruppen")
+cluster_walktrap(favfriend)
+
+### 
+
+degree(m, mode = "out")
+# Anzeigen der Outdegrees pro Akteur des Netzwerk "Männer", Zagros, Ruben, Max max. Outdegrees
+degree(m, mode="out", normalized = TRUE)
+# Anzeigen der prozentualen (d.h. normalisierten) Outdegrees des Netzwerk "Frauen" an
+
+# der Wert der Zentralisierung, der Closeness und der Betweenness interessiert hier wenig, 
+# da es sich um mehrere Ego Netze handelt, 
+# diese Werte werden im Spielerinnen Netzwerk spannender
 
 ############################################
 #Gesamtnetzwerk erstellen->FavFriend und Support zusammen in einem
 
 m<-support+favfriend #erstellte Teilnetzwerke einfach addieren
-plot(m)
+plot(m, layout=layout_with_kk, layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.2)
+
+# vergleichende Darstellung der beiden Teilnetze
+par(mfrow=c(1,2), mar=c(0,0,2,0))   
+plot(support, layout=layout_nicely, edge.arrow.size=0.2, main="Beziehungsnetzwerk Männermannschaft - Unterstützer")
+plot(favfriend, layout=layout_nicely, edge.arrow.size=0.2, main="Freundschaftsnetzwerk Männermmannschaft - Freunde")
+
+#Netzwerkmaße des Gesamtnetzwerks berechnen
+
+# Plotten der Cluster des Gesamtnetzwerks in Farben 
+gc <- cluster_walktrap(m)
+modularity(gc)
+membership(gc)
+plot(gc, m, edge.arrow.size = 0.2)
+
+### Analyse ### Infos zum Männer-Netzwerk
+
+# Anzahl	der	Dyaden im Netzwerk "Männer"
+dyad.census(m)
+# 10 mutuelle - 102 asymetrische - 1214 null
+
+# Anzahl und Art der Triaden im Netzwerk "Männer" 
+# 34 mal den Out Star 021D und 4 mal eine Linie 021C
+triad_census(m)
+# 003-6468 012-727 102-410 021D-91 021U-5 021C-27 111D-2 111U-34 030T-0 030C-0 201-3 120D-2 120U-1 120C-0 210-0 300-0
+
+#Auflistung der Knoten Attribute 
+vertex_attr(m)
+
+# Anzahl der Componenten: 52
+components(m)
+#sind diese Componenten verbunden? TRUE (ja)
+is_connected(m)
+
+# Durchmesser des Netzwerks: 6 (Schritte maximal von einem zum anderen Ende)
+diameter(m)
+
+# Pfaddistanz des Netzwerks: 2,86 (Schritte durchschnittlich von einem zum anderen Ende)
+mean_distance(m)
+
+# Dichte des Netzwerks: 4 (fast5) (% der Möglichen Beziehungen sind realisiert)
+edge_density(m)
+
+# Anzahl der Cluster: 7 ("Kleingruppen")
+cluster_walktrap(m)
+
+### 
+
+degree(m, mode = "out")
+# Anzeigen der Outdegrees pro Akteur des Netzwerk "Männer", Zagros, Ruben, Max max. Outdegrees
+degree(m, mode="out", normalized = TRUE)
+# Anzeigen der prozentualen (d.h. normalisierten) Outdegrees des Netzwerk "Frauen" an
+
+# der Wert der Zentralisierung, der Closeness und der Betweenness interessiert hier wenig, 
+# da es sich um mehrere Ego Netze handelt, 
+# diese Werte werden im Spieler Netzwerk spannender
+
+###
 
 ############################################
 # Ego Netzwerke der stark und wenig unterstützten Spieler erstellen
 
 me <- subgraph<-make_ego_graph(m, order=1, c("Ruben Hihn")) 
 me
-plot(me[[1]], edge.arrow.size=.1)
+plot(me[[1]], edge.arrow.size=.1, layout=layout_with_kk, layout=layout_nicely, edge.curved=0.2)
 
 mk<- subgraph<-make_ego_graph(m, order=1, c("Nico Hihn")) 
 mk
-plot(mk[[1]], edge.arrow.size=.1)#erstellt Egonetzwerk von Knoten mit ID 18, zeigt alle Knoten an, die innerhalb eines Schrittes mit 18 verbunden sind
+plot(mk[[1]], edge.arrow.size=.1, layout=layout_with_kk, layout=layout_nicely, edge.curved=0.2)
+)#erstellt Egonetzwerk von Knoten mit ID 18, zeigt alle Knoten an, die innerhalb eines Schrittes mit 18 verbunden sind
 
 mm <- subgraph<-make_ego_graph(m, order=1, c("Ferdinand Gerstenberger")) 
 mm
-plot(mm[[1]], edge.arrow.size=.1)
+plot(mm[[1]], edge.arrow.size=.1, layout=layout_with_kk, layout=layout_nicely, edge.curved=0.2)
 
 mb <- subgraph<-make_ego_graph(m, order=1, c("Constantin Munz")) 
 mb
-plot(mb[[1]], edge.arrow.size=.1)
-####
+plot(mb[[1]], edge.arrow.size=.1, layout=layout_with_kk, layout=layout_nicely, edge.curved=0.2)
+
+
+# vergleichende Darstellung der vier Männer
+par(mfrow=c(2,2), mar=c(0,0,2,0))   
+plot(me[[1]], layout=layout_nicely, edge.arrow.size=0.2, main="Ego Spieler E")
+plot(mk[[1]], layout=layout_nicely, edge.arrow.size=0.2, main="Ego Spieler K")
+plot(mm[[1]], layout=layout_nicely, edge.arrow.size=0.2, main="Ego Spieler M")
+plot(mb[[1]], layout=layout_nicely, edge.arrow.size=0.2, main="Ego Spieler B")
+
