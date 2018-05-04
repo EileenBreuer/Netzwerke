@@ -1,48 +1,48 @@
-id,name,sex,club,duration,previous,reason,position,shirtnumber,time,motherland,grown,residence,religion,age,living,education,job
-SpielerA,Max Stierle,m,SVM,2,1,Trainer,1,4,8,Deutschland,Deutschland,Ludwigsburg,a,4,Eltern,Abitur,Student
-SpielerB,Constantin Munz,m,SVM,4,1,Weiterentwicklung,4,15,8,Deutschland,Deutschland,Stuttgart,k,5,alleine,Abitur,Student
-SpielerC,Zagros Norouzian,m,SVM,5,1,Niveau,1,11,,Deutschland,Deutschland,Stuttgart,a,3,Eltern,MittlereReife,FSJ
-SpielerD,Pius Weller,m,SVM,5,0,NA,4,12,9,Deutschland,Deutschland,Stuttgart,k,5,Eltern,Abitur,Ausbildung
-SpielerE,Ruben Hihn,m,SVM,6,1,Umzug,4,20,7,Deutschland,Deutschland,Stuttgart,n,4,WG,Abitur,Student
-SpielerF,Jacob Nägele,m,SVM,6,1,Studium,4,6,6,Deutschland,Deutschland,Stuttgart,k,6,Partner,Studium,JuniorSalesmanager
-SpielerG,Darly Ifuly,m,SMV,2,1,Niveau,1,14,7,Frankreich,Deutschland,Stuttgart,a,6,allein,Studium,PflegeGesundheitsmanager
-SpielerH,Hugo Mounier,m,SMV,4,1,Trainer,5,2,8,USA,Deutschland,Stuttgart,k,3,Eltern,MittlereReife,Schueler
-SpielerI,Dino Begagic,m,SMV,2,1,Umzug,2,9,4,Bosnien-Herzegowina,Bosnien-Herzegowina,Stuttgart,m,6,Partner,Hauptschulabschluss,GesundheitsKrankenpfleger
-SpielerK,Nico Hihn,m,SVM,6,1,Niveau,1,5,8,Deutschland,Deutschland,Stuttgart,n,4,WG,MittlereReife,Auszubildender
-SpielerL,Petros Tzikas,m,SVM,6,1,Lage,4,7,8,Deutschland,Deutschland,Sindelfingen,g,6,Partnerin,Fachhochschulreife,Bankkaufmann
-SpielerN,Daniel Grieb,m,SVM,4,0,NA,1,13,8,Deutschland,Deutschland,Stuttgart,e,3,Eltern,MittlereReife,Schueler
-Bekannter1,Wolfgang Max Vater,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Ludwigsburg,a,10,NA,Studium,Arzt
-Bekannter2,Wolfgang Max Großvater,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Ludwigsburg,e,11,NA,Abitur,Rentner
-Bekannter3,Heike Max Mutter,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Ludwigsburg,a,9,NA,MittlereReife,Sekretaerin
-Bekannter4,Kevin Constantin Freund,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,e,5,NA,MittlereReife,Mechatroniker
-Bekannter5,Felix Constantin Freund,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,e,5,NA,Abitur,ProfisportlerImTurnen
-Bekannter6,Vivien Constantin Freundin,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,SchwaebischGmuend,w,5,NA,Studium,Masterstudentin
-Bekannter7,Latifeh Mutter Zagros,w,NA,NA,NA,NA,NA,NA,NA,Iran,Norwegen,Stuttgart,w,8,NA,Studium,Hausfrau
-Bekannter8,Siamak Vater Zagros,m,NA,NA,NA,NA,NA,NA,NA,Iran,Schweden,Stuttgart,w,8,NA,Studium,Restaurantleiter
-Bekannter9,Patrick Bruder Zagros,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,a,2,Eltern,Keine,Schueler
-Bekannter10,Udo Pius Weller Vater,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,k,9,NA,Fachhochschulreife,Sozialarbeiter
-Bekannter11,Doro Pius Weller Mutter,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,k,9,NA,MittlereReife,Altenpflegerin
-Bekannter12,Hans Henning Pius Weller Patenonkel,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Schwarzwald,e,9,NA,Studium,Schulleiter
-Bekannter13,Thomas Hihn Vater Nico und Ruben Hihn,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,n,8,NA,MittlereReife,Elektriker
-Bekannter14,Simone Ruben und Nico Hihn Mutter,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,n,9,NA,MittlereReife,Zahnarzthelferin
-Bekannter15,Eberhardt Ruben Hihn Großvater,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,n,11,NA,MittlereReife,Rentner
-Bekannter16,Marc Ruben Hihn Freund,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Waldenbuch,e,5,NA,Fachhochschulreife,Einzelhandelskaufmann
-Bekannter17,Julia Jacob Freundin,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,e,7,Partner,Abitur,Lehrerin
-Bekannter18,Sebastian Jacob Nachbar,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,e,6,NA,Abitur,JuniorLogistikmanager
-Bekannter19,Sascha Teammanager,m,SVM,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Filderstadt,e,7,NA,Studium,Marketing
-Bekannter22,Ross Darly Freund,m,NA,NA,NA,NA,NA,NA,NA,USA,USA,KirchheimTeck,w,8,NA,Studium,Trainer
-Bekannter23,Pauline Darly Mutter,w,NA,NA,NA,NA,NA,NA,NA,Belgien,Belgien,Esslingen,e,8,NA,Studium,Sozialpädagogin
-Bekannter24,Jonas Darly Bruder,m,NA,NA,NA,NA,NA,NA,NA,KirchheimTeck,KirchheimTeck,Esslingen,e,2,NA,keinen,Schueler
-Bekannter25,Erik Hugo Vater,m,NA,NA,NA,NA,NA,NA,NA,Frankreich,Frankreich,Stuttgart,k,9,NA,Studium,Selbstaendig
-Bekannter26,Maxim Hugo Bruder,m,NA,NA,NA,NA,NA,NA,NA,Frankreich,Deutschland,Stuttgart,a,5,NA,Abitur,Student
-Bekannter27,Maryline Hugo Mutter,w,NA,NA,NA,NA,NA,NA,NA,Frankreich,Frankreich,Stuttgart,k,8,NA,Studium,Franzoesischlehrerin
-Bekannter28,Vater Dino,m,NA,NA,NA,NA,NA,NA,NA,Bosnien-Herzegowina,Bosnien-Herzegowina,Zenica,m,9,NA,Hauptschulabschluss,Verkaeufer
-Bekannter29,Mirco Dino Bruder,m,NA,NA,NA,NA,NA,NA,NA,Bosnien-Herzegowina,Bosnien-Herzegowina,Zenica,m,4,NA,Hauptschulabschluss,OekologischerTechniker
-Bekannter30,Julia Pfeifer Freundin Nico Hihn,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Echterdingen,k,4,NA,Abitur,Verkaeuferin
-Bekannter31,Aleesha Tzikas Frau Petros Tzikas,w,SVM,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Sindelfingen,g,6,NA,Abitur,Krankenschwester
-Bekannter32,Pascal Tzikas Vater Petros Tzikas,m,NA,NA,NA,NA,NA,NA,NA,Griechenland,Griechenland,Stuttgart,g,9,NA,Abitur,Gastronom
-Bekannter33,Maria Tzikas Schwester Petros Tzikas,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,g,6,NA,Studium,Vorstandsassistentin
-Bekannter34,Susanne Mutter Daniel,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,k,8,NA,Fachhochschulreite,Buchhaltung
-Bekannter35,Jürgen Vater Daniel,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,e,9,NA,MittlereReife,Innendienstleiter
-Bekannter36,Phillipp Bruder Daniel,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,e,4,NA,MittlereReife,Industriemechaniker
-Trainer,Trainer,m,SMV,NA,NA,NA,NA,NA,NA,Bosnien-Herzegowina,Bosnien-Herzegowina,Stuttgart,k,8,NA,Studium,Immobilienmakler
+name,id,sex,club,duration,previous,reason,position,shirtnumber,time,motherland,grown,residence,religion,age,living,education,job,function
+SpielerA,Max Stierle,m,SVM,2,1,Trainer,1,4,8,Deutschland,Deutschland,Ludwigsburg,a,4,Eltern,Abitur,Student,Player
+SpielerB,Constantin Munz,m,SVM,4,1,Weiterentwicklung,4,15,8,Deutschland,Deutschland,Stuttgart,k,5,alleine,Abitur,Student,Player
+SpielerC,Zagros Norouzian,m,SVM,5,1,Niveau,1,11,,Deutschland,Deutschland,Stuttgart,a,3,Eltern,MittlereReife,FSJ,Player
+SpielerD,Pius Weller,m,SVM,5,0,NA,4,12,9,Deutschland,Deutschland,Stuttgart,k,5,Eltern,Abitur,Ausbildung,Player
+SpielerE,Ruben Hihn,m,SVM,6,1,Umzug,4,20,7,Deutschland,Deutschland,Stuttgart,n,4,WG,Abitur,Student,Player
+SpielerF,Jacob Nägele,m,SVM,6,1,Studium,4,6,6,Deutschland,Deutschland,Stuttgart,k,6,Partner,Studium,JuniorSalesmanager,Player
+SpielerG,Darly Ifuly,m,SMV,2,1,Niveau,1,14,7,Frankreich,Deutschland,Stuttgart,a,6,allein,Studium,PflegeGesundheitsmanager,Player
+SpielerH,Hugo Mounier,m,SMV,4,1,Trainer,5,2,8,USA,Deutschland,Stuttgart,k,3,Eltern,MittlereReife,Schueler,Player
+SpielerI,Dino Begagic,m,SMV,2,1,Umzug,2,9,4,Bosnien-Herzegowina,Bosnien-Herzegowina,Stuttgart,m,6,Partner,Hauptschulabschluss,GesundheitsKrankenpfleger,Player
+SpielerK,Nico Hihn,m,SVM,6,1,Niveau,1,5,8,Deutschland,Deutschland,Stuttgart,n,4,WG,MittlereReife,Auszubildender,Player
+SpielerL,Petros Tzikas,m,SVM,6,1,Lage,4,7,8,Deutschland,Deutschland,Sindelfingen,g,6,Partnerin,Fachhochschulreife,Bankkaufmann,Player
+SpielerN,Daniel Grieb,m,SVM,4,0,NA,1,13,8,Deutschland,Deutschland,Stuttgart,e,3,Eltern,MittlereReife,Schueler,Player
+Bekannter1,Wolfgang Max Vater,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Ludwigsburg,a,10,NA,Studium,Arzt,Friend
+Bekannter2,Wolfgang Max Großvater,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Ludwigsburg,e,11,NA,Abitur,Rentner,Friend
+Bekannter3,Heike Max Mutter,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Ludwigsburg,a,9,NA,MittlereReife,Sekretaerin,Friend
+Bekannter4,Kevin Constantin Freund,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,e,5,NA,MittlereReife,Mechatroniker,Friend
+Bekannter5,Felix Constantin Freund,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,e,5,NA,Abitur,ProfisportlerImTurnen,Friend
+Bekannter6,Vivien Constantin Freundin,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,SchwaebischGmuend,w,5,NA,Studium,Masterstudentin,Friend
+Bekannter7,Latifeh Mutter Zagros,w,NA,NA,NA,NA,NA,NA,NA,Iran,Norwegen,Stuttgart,w,8,NA,Studium,Hausfrau,Friend
+Bekannter8,Siamak Vater Zagros,m,NA,NA,NA,NA,NA,NA,NA,Iran,Schweden,Stuttgart,w,8,NA,Studium,Restaurantleiter,Friend
+Bekannter9,Patrick Bruder Zagros,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,a,2,Eltern,Keine,Schueler,Friend
+Bekannter10,Udo Pius Weller Vater,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,k,9,NA,Fachhochschulreife,Sozialarbeiter,Friend
+Bekannter11,Doro Pius Weller Mutter,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,k,9,NA,MittlereReife,Altenpflegerin,Friend
+Bekannter12,Hans Henning Pius Weller Patenonkel,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Schwarzwald,e,9,NA,Studium,Schulleiter,Friend
+Bekannter13,Thomas Hihn Vater Nico und Ruben Hihn,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,n,8,NA,MittlereReife,Elektriker,Friend
+Bekannter14,Simone Ruben und Nico Hihn Mutter,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,n,9,NA,MittlereReife,Zahnarzthelferin,Friend
+Bekannter15,Eberhardt Ruben Hihn Großvater,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,n,11,NA,MittlereReife,Rentner,Friend
+Bekannter16,Marc Ruben Hihn Freund,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Waldenbuch,e,5,NA,Fachhochschulreife,Einzelhandelskaufmann,Friend
+Bekannter17,Julia Jacob Freundin,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,e,7,Partner,Abitur,Lehrerin,Friend
+Bekannter18,Sebastian Jacob Nachbar,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,e,6,NA,Abitur,JuniorLogistikmanager,Friend
+Bekannter19,Sascha Teammanager,m,SVM,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Filderstadt,e,7,NA,Studium,Marketing,Friend
+Bekannter22,Ross Darly Freund,m,NA,NA,NA,NA,NA,NA,NA,USA,USA,KirchheimTeck,w,8,NA,Studium,Trainer,Friend
+Bekannter23,Pauline Darly Mutter,w,NA,NA,NA,NA,NA,NA,NA,Belgien,Belgien,Esslingen,e,8,NA,Studium,Sozialpädagogin,Friend
+Bekannter24,Jonas Darly Bruder,m,NA,NA,NA,NA,NA,NA,NA,KirchheimTeck,KirchheimTeck,Esslingen,e,2,NA,keinen,Schueler,Friend
+Bekannter25,Erik Hugo Vater,m,NA,NA,NA,NA,NA,NA,NA,Frankreich,Frankreich,Stuttgart,k,9,NA,Studium,Selbstaendig,Friend
+Bekannter26,Maxim Hugo Bruder,m,NA,NA,NA,NA,NA,NA,NA,Frankreich,Deutschland,Stuttgart,a,5,NA,Abitur,Student,Friend
+Bekannter27,Maryline Hugo Mutter,w,NA,NA,NA,NA,NA,NA,NA,Frankreich,Frankreich,Stuttgart,k,8,NA,Studium,Franzoesischlehrerin,Friend
+Bekannter28,Vater Dino,m,NA,NA,NA,NA,NA,NA,NA,Bosnien-Herzegowina,Bosnien-Herzegowina,Zenica,m,9,NA,Hauptschulabschluss,Verkaeufer,Friend
+Bekannter29,Mirco Dino Bruder,m,NA,NA,NA,NA,NA,NA,NA,Bosnien-Herzegowina,Bosnien-Herzegowina,Zenica,m,4,NA,Hauptschulabschluss,OekologischerTechniker,Friend
+Bekannter30,Julia Pfeifer Freundin Nico Hihn,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Echterdingen,k,4,NA,Abitur,Verkaeuferin,Friend
+Bekannter31,Aleesha Tzikas Frau Petros Tzikas,w,SVM,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Sindelfingen,g,6,NA,Abitur,Krankenschwester,Friend
+Bekannter32,Pascal Tzikas Vater Petros Tzikas,m,NA,NA,NA,NA,NA,NA,NA,Griechenland,Griechenland,Stuttgart,g,9,NA,Abitur,Gastronom,Friend
+Bekannter33,Maria Tzikas Schwester Petros Tzikas,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,g,6,NA,Studium,Vorstandsassistentin,Friend
+Bekannter34,Susanne Mutter Daniel,w,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,k,8,NA,Fachhochschulreite,Buchhaltung,Friend
+Bekannter35,Jürgen Vater Daniel,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,e,9,NA,MittlereReife,Innendienstleiter,Friend
+Bekannter36,Phillipp Bruder Daniel,m,NA,NA,NA,NA,NA,NA,NA,Deutschland,Deutschland,Stuttgart,e,4,NA,MittlereReife,Industriemechaniker,Friend
+Trainer,Trainer,m,SMV,NA,NA,NA,NA,NA,NA,Bosnien-Herzegowina,Bosnien-Herzegowina,Stuttgart,k,8,NA,Studium,Immobilienmakler,Friend
