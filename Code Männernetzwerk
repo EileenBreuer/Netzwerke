@@ -92,17 +92,6 @@ degree(support, mode="out", normalized = TRUE)
 # da es sich um mehrere Ego Netze handelt, 
 # diese Werte werden im Spieler Netzwerk spannender
 
-############################################
-#Gesamtnetzwerk erstellen->FavFriend und Support zusammen in einem
-
-m<-support+favfriend #erstellte Teilnetzwerke einfach addieren
-plot(m, layout=layout_with_kk, layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.2)
-
-# vergleichende Darstellung der beiden Teilnetze
-par(mfrow=c(1,2), mar=c(0,0,2,0))   
-plot(support, layout=layout_nicely, edge.arrow.size=0.2, main="Beziehungsnetzwerk Männermannschaft - Unterstützer")
-plot(favfriend, layout=layout_nicely, edge.arrow.size=0.2, main="Freundschaftsnetzwerk Männermmannschaft - Freunde")
-
 ###############################
 #####Fav/Friend Netzwerk Männer
 favfriend <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/EdgelistMenFavFriend.csv", header=T, as.is=T, sep = ",")
@@ -262,20 +251,20 @@ degree(m, mode="out", normalized = TRUE)
 ############################################
 # Ego Netzwerke der stark und wenig unterstützten Spieler erstellen
 
-me <- subgraph<-make_ego_graph(m, order=1, c("Ruben Hihn")) 
+me <- subgraph<-make_ego_graph(m, order=1, c("SpielerE")) 
 me
 plot(me[[1]], edge.arrow.size=.1, layout=layout_with_kk, layout=layout_nicely, edge.curved=0.2)
 
-mk<- subgraph<-make_ego_graph(m, order=1, c("Nico Hihn")) 
+mk<- subgraph<-make_ego_graph(m, order=1, c("SpielerK")) 
 mk
 plot(mk[[1]], edge.arrow.size=.1, layout=layout_with_kk, layout=layout_nicely, edge.curved=0.2)
 #erstellt Egonetzwerk von Knoten mit ID 18, zeigt alle Knoten an, die innerhalb eines Schrittes mit 18 verbunden sind
 
-mm <- subgraph<-make_ego_graph(m, order=1, c("Ferdinand Gerstenberger")) 
+mm <- subgraph<-make_ego_graph(m, order=1, c("SpielerM")) 
 mm
 plot(mm[[1]], edge.arrow.size=.1, layout=layout_with_kk, layout=layout_nicely, edge.curved=0.2)
 
-mb <- subgraph<-make_ego_graph(m, order=1, c("Constantin Munz")) 
+mb <- subgraph<-make_ego_graph(m, order=1, c("SpielerB")) 
 mb
 plot(mb[[1]], edge.arrow.size=.1, layout=layout_with_kk, layout=layout_nicely, edge.curved=0.2)
 
