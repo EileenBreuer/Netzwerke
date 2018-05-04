@@ -10,9 +10,6 @@ library("igraph")
 ?igraph
 # liefert die Hilfefunktion für igraph
 
-#########################################################
-#WICHTIG: Immer nur eines von beiden runnen: Wenn das Unterstützer-Netzwerk erstellt werden soll, immer nur die erste Zeile des jeweiligen Befehls runnen, wenn das Mannschaftsnetzwerk erstellt werden soll,immer die zweite Zeile.
-#I-Graph-Objekt erstellen
 
 
 #################################
@@ -48,6 +45,63 @@ plot(support,layout=layout_with_kk, layout=layout_nicely, edge.arrow.size=0.2, e
 #einfache Visualisierung
 plot(support, layout = layout_with_kk,layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.2, main = "Beziehungsnetzwer Männermannschaft")
 
+# Analyse des support-Netzwerks
+
+betweenness(support, directed = TRUE)
+# 
+
+closeness (favfriend, mode ="out")
+# 
+
+# Anzahl	der	Dyaden im Netzwerk "Support-Männer"
+dyad.census(support)
+#  2 Mutuelle, 74 asymetrische, 1005 null
+
+# Anzahl und Art der Triaden im Netzwerk "Männer" 
+triad_census(support)
+# 003-14474 012-803 102-881 021D-42 021U-0 021C-3 111D-0 111U-10 030T-0 030C-0 201-0 120D-2 120U-0 120C-2 210-0 300-0
+
+#Auflistung der Knoten Attribute 
+vertex_attr(support)
+
+# Anzahl der Componenten: 52
+components(support)
+#sind diese Componenten verbunden? FALSE(nein)
+is_connected(support)
+
+# Durchmesser des Netzwerks: 13 (Schritte maximal von einem zum anderen Ende)
+diameter(support)
+
+# Pfaddistanz des Netzwerks: 1,327 (Schritte durchschnittlich von einem zum anderen Ende)
+mean_distance(support)
+
+# Dichte des Netzwerks: 3% (fast 4) (% der Möglichen Beziehungen sind realisiert)
+edge_density(support)
+
+# Anzahl der Cluster: 4 ("Kleingruppen")
+cluster_walktrap(support)
+
+### 
+
+degree(support, mode = "out")
+# Anzeigen der Outdegrees pro Akteur des Netzwerk "MännerSupport",Spieler E und Spieler C höchsten Outdegree
+degree(support, mode="out", normalized = TRUE)
+# Anzeigen der prozentualen (d.h. normalisierten) Outdegrees des Netzwerk "MännerSupport" an
+
+# der Wert der Zentralisierung, der Closeness und der Betweenness interessiert hier wenig, 
+# da es sich um mehrere Ego Netze handelt, 
+# diese Werte werden im Spieler Netzwerk spannender
+
+############################################
+#Gesamtnetzwerk erstellen->FavFriend und Support zusammen in einem
+
+m<-support+favfriend #erstellte Teilnetzwerke einfach addieren
+plot(m, layout=layout_with_kk, layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.2)
+
+# vergleichende Darstellung der beiden Teilnetze
+par(mfrow=c(1,2), mar=c(0,0,2,0))   
+plot(support, layout=layout_nicely, edge.arrow.size=0.2, main="Beziehungsnetzwerk Männermannschaft - Unterstützer")
+plot(favfriend, layout=layout_nicely, edge.arrow.size=0.2, main="Freundschaftsnetzwerk Männermmannschaft - Freunde")
 
 ###############################
 #####Fav/Friend Netzwerk Männer
@@ -215,7 +269,7 @@ plot(me[[1]], edge.arrow.size=.1, layout=layout_with_kk, layout=layout_nicely, e
 mk<- subgraph<-make_ego_graph(m, order=1, c("Nico Hihn")) 
 mk
 plot(mk[[1]], edge.arrow.size=.1, layout=layout_with_kk, layout=layout_nicely, edge.curved=0.2)
-)#erstellt Egonetzwerk von Knoten mit ID 18, zeigt alle Knoten an, die innerhalb eines Schrittes mit 18 verbunden sind
+#erstellt Egonetzwerk von Knoten mit ID 18, zeigt alle Knoten an, die innerhalb eines Schrittes mit 18 verbunden sind
 
 mm <- subgraph<-make_ego_graph(m, order=1, c("Ferdinand Gerstenberger")) 
 mm
