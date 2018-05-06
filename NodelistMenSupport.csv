@@ -1,4 +1,4 @@
-name,id,sex,club,duration,previous,reason,position,shirtnumber,time,motherland,grown,residence,religion,age,living,education,job,function
+name,id,sex,club,duration,previous,reason,position,shirtnumber,time,motherland,grown,residence,religion,age,living,education,job,person
 SpielerA,Max Stierle,m,SVM,2,1,Trainer,1,4,8,Deutschland,Deutschland,Ludwigsburg,a,4,Eltern,Abitur,Student,Player
 SpielerB,Constantin Munz,m,SVM,4,1,Weiterentwicklung,4,15,8,Deutschland,Deutschland,Stuttgart,k,5,alleine,Abitur,Student,Player
 SpielerC,Zagros Norouzian,m,SVM,5,1,Niveau,1,11,,Deutschland,Deutschland,Stuttgart,a,3,Eltern,MittlereReife,FSJ,Player
