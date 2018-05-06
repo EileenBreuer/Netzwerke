@@ -37,21 +37,121 @@ vertex_attr(support)
 
 class(help)#Test, ob ein igraph-Objekt vorliegt
 
-
 #Visualisierung Support-Netzwerk#
 
-E(support)$color="black"
-plot(support,layout=layout_with_kk, layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.2,)
+
 #einfache Visualisierung
-plot(support, layout = layout_with_kk,layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.2, main = "Beziehungsnetzwer Männermannschaft")
+plot(support, layout = layout_with_kk,layout=layout_nicely, main = "Unterstützernetzwerk Männermannschaft", sub="Formen der Unterstützung zwischen den Spielern und den angegebenen Alteri", vertex.size=11, vertex.frame.color="grey", edge.arrow.size=.1, edge.curved=.4, vertex.label.dist=0, vertex.label.degree=3, vertex.label.cex=.6, vertex.label.family="Helvetica", vertex.label.font=1, vertex.label.color="dimgrey")
+
+#NURERKLÄRUNG:
+#VERTEX LABELS schöner machen
+#vertex.label.dist=0 # gibt an, wie weit der Label vom Knoten entfernt platziert werden soll
+#vertex.label.degree=3 # gibt an, in welchem Winkel der Label zum Knoten gesetzt wird
+#vertex.label.cex=.8 # gibt die Größe des Labels an
+#vertex.label.family="Helvetica" # gibt die Schriftart des Knotens an
+#vertex.label.font=2 # gibt an, welcher Schriftschnitt verwendet wird.
+
+#schönere Visualisierung mit visNetwork
+library(visNetwork)
+?visNetwork
+
+# Mit dem Befehl visIgraph() lassen sich bereits vorhandenen igraph-Objekte visualisieren. Mehr Info hier: http://datastorm-open.github.io/visNetwork/
+
+visIgraph(support, layout = "layout_with_kk")
+# oder auch:
+visIgraph(support, layout = "layout_in_circle")
+visIgraph(support, layout = "layout_with_fr")
+visIgraph(support, layout = "layout_nicely")
+
+####### Vertexattribute festlegen
+V(support)$size = hd
+
+#Knoten einfärben je nach männlich/weiblich
+Frauen<-V(support)[sex=="w"] #wählt alle Knoten aus, die das Knoten-Attribut $sex gleich "w" haben
+Frauen
+V(support)[Frauen]$color="maroon1" #weist allen Werten Weiblich die Farbe "maroon1" zu
+
+Men<-V(support)[sex=="m"]#wählt alle Knoten aus, die das Knotenattribut §sex gleich "m" haben
+Men
+V(support)[Men]$color="skyblue1"
+
+#Knoten verschiedene Formen zuweisen je nach Spieler/Unterstützer
+Spieler<-V(support)[person=="Player"] #wählt alle Knoten aus, die das Knoten-Attribut §function gleich "player" haben
+Spieler
+V(support)[Spieler]$shape="circle" #weist allen ausgewählten Knoten die §Form gleich "circle" zu
+
+Bekannte<-V(support)[person=="Friend"] #wählt alle Knoten aus, die das Knotenattribut §function gleich "friend" haben
+Bekannte
+V(support) [Bekannte]$shape="square"
+
+###### Kantenattribute
+E(support)$arrow.size <- .1
+E(support)$width <- E(support)$weight/2 # legt das Kantengewicht fest
+E(support)$curved=.4
+
+
+#NUR FÜR EDGELIST, IN DER DER SUPPORT NUR EINE ZEILE UMFASST Edges einfärben je nach Unterstützerform#
+Instrumental<- E(support)[support == "1"]
+# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $instrumental gesetzt haben
+Instrumental
+E(support)[Instrumental]$color = "yellow"
+# weist allen Werten von Instrumental die Farbe "yellow" zu.
+
+Medical<- E(support)[support == "2"]
+# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $medical gesetzt haben
+Medical
+E(support)[Medical]$color = "red"
+# weist allen Werten von Medizinisch die Farbe "red" zu.
+
+Financial<- E(support)[support == "3"]
+# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $financial gesetzt haben
+Financial
+E(support)[Financial]$color = "orange"
+# weist allen Werten von Finanziell die Farbe "orange" zu.
+
+Emotional<- E(support)[support == "4"]
+# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $medical gesetzt haben
+Emotional
+E(support)[Emotional]$color = "tomato"
+# weist allen Werten von Medizinisch die Farbe "red" zu.
+
+
+#NUR FÜR EDGELIST, IN DER SUPPORT MEHRERE ZEILEN UMFASST Edges einfärben je nach Unterstützerform#
+Instrumental<- E(support)[instrumental == "1"]
+# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $instrumental gesetzt haben
+Instrumental
+E(support)[Instrumental]$color = "yellow"
+# weist allen Werten von Instrumental die Farbe "yellow" zu.
+
+Medizinisch<- E(support)[medical == "1"]
+# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $medical gesetzt haben
+Medizinisch
+E(support)[Medizinisch]$color = "red"
+# weist allen Werten von Medizinisch die Farbe "red" zu.
+
+Finanziell<- E(support)[financial == "1"]
+# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $financial gesetzt haben
+Finanziell
+E(support)[Finanziell]$color = "orange"
+# weist allen Werten von Finanziell die Farbe "orange" zu.
+
+Emotional<- E(support)[emotional == "1"]
+# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $medical gesetzt haben
+Emotional
+E(support)[Emotional]$color = "tomato"
+# weist allen Werten von Medizinisch die Farbe "red" zu.
+
+E(favfriend)$color="black" #färbt alle Kanten in einer Farbe ein
+
+
 
 # Analyse des support-Netzwerks
 
 betweenness(support, directed = TRUE)
-# 
+# Spieler A gleich höchste mit 6
 
-closeness (favfriend, mode ="out")
-# 
+closeness (support, mode ="out")
+#gibt es nicht, weil unverbunden
 
 # Anzahl	der	Dyaden im Netzwerk "Support-Männer"
 dyad.census(support)
@@ -78,8 +178,14 @@ mean_distance(support)
 # Dichte des Netzwerks: 3% (fast 4) (% der Möglichen Beziehungen sind realisiert)
 edge_density(support)
 
-# Anzahl der Cluster: 4 ("Kleingruppen")
+# Anzahl der Cluster: 11 ("Kleingruppen")
 cluster_walktrap(support)
+
+#Anzeigen der Cluster im Bild
+gc <- cluster_walktrap(support)
+modularity(gc)
+membership(gc)
+plot(gc, support, edge.arrow.size = 0.2)
 
 ### 
 
@@ -120,17 +226,32 @@ class(help)#Test, ob ein igraph-Objekt vorliegt
 
 #Visualisierung Fav/Friend-Netzwerk#
 
-colrs <- c("red", "black") #c definiert Farbenvektor
+E(favfriend)$width <- E(favfriend)$weight*3 # multipliziert die Gewicht mit dem Faktor 2, daher werden diese auch stärker visualisiert werden.
+
+colrs <- c("yellow, red") #c definiert Farbenvektor
 #definiert das Farbspektrum, der verwendeten Farben und legt diese in einem neuen Vector colrs fest. Da wir wissen, dass wir bei §sex nur zwei Werte haben (männlich, weiblich) brauchen wir auch zwei Werte. Die direkten Farbpaletten sind hier hinterlegt: http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf.
 E(favfriend)$color <- colrs[E(favfriend)$favorite]
+E(favfriend)$color<- colrs[E(favfriend)$friendship]
 # weist dem Vertex-Attribut color die Funktion colrs zu, die wir vorher mit zwei Farben definiert haben.
-plot(favfriend,layout=layout_with_kk, layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.2,)
+plot(favfriend,layout=layout_with_kk, layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.6,main="Freundschaftsnetzwerk Männermanschaft")
 
-E(favfriend)$ color="black"
+####Edges Form je nach Art der Beziehung bestimmen#
 
-#Einfache Visualisierung
+Freunde<- E(favfriend)[friendship == "1"]
+# wöhlt alle Knoten aus, die das Edge-Attribut "1" bei $favorite gesetzt haben
+Freunde
+E(favfriend)[Freunde]$color = "yellow"
 
-plot(favfriend, layout = layout_with_kk,layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.2, main = "Netzwerk Männermannschaft")
+# weist allen Werten von Favoriten die Farbe "red" zu.
+Favoriten<- E(favfriend)[favorite == "1"]
+# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $favorite gesetzt haben
+Favoriten
+E(favfriend)[Favoriten]$color = "red"
+# weist allen Werten von Favoriten die Farbe "red" zu.
+
+E(favfriend)$color="black" #färbt alle Kanten in einer Farbe ein
+
+
 
 # Analyse des fav/friend-Netzwerks
 
@@ -138,7 +259,7 @@ betweenness(favfriend, directed = TRUE)
 # Nico höchster Wert=35,75(höchster Wert)
 
 closeness (favfriend, mode ="out")
-# Spielerin 3 Wert=0.024 (höchster Wert)
+# geht nicht, weil nicht verbunden
 
 eigen_centrality(favfriend, directed = TRUE)
 # wie liest man das aus?
@@ -176,14 +297,22 @@ cluster_walktrap(favfriend)
 
 ### 
 
-degree(m, mode = "out")
+degree(favfriend, mode = "out")
 # Anzeigen der Outdegrees pro Akteur des Netzwerk "Männer", Zagros, Ruben, Max max. Outdegrees
-degree(m, mode="out", normalized = TRUE)
+degree(favfriend, mode="out", normalized = TRUE)
 # Anzeigen der prozentualen (d.h. normalisierten) Outdegrees des Netzwerk "Frauen" an
 
 # der Wert der Zentralisierung, der Closeness und der Betweenness interessiert hier wenig, 
 # da es sich um mehrere Ego Netze handelt, 
 # diese Werte werden im Spielerinnen Netzwerk spannender
+
+
+#Anzeigen der Cluster im Bild
+favfriendcluster <- cluster_walktrap(favfriend)
+modularity(favfriendcluster)
+membership(favfriendcluster)
+plot(favfriendcluster, favfriend, edge.arrow.size = 0.2)
+
 
 ############################################
 #Gesamtnetzwerk erstellen->FavFriend und Support zusammen in einem
