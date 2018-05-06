@@ -1,40 +1,38 @@
+# Unterstützernetzwerke im Sport (Männermannschaft)
+## Gruppenmitglieder: Eileen Breuer (eb053), Anna von Teuffel (at059), Merle Flachsbarth (mf136), Nina Büchs (nb087), Selina Spieß (ss420)
+
+#1. Im ersten Schritt müssen die Basis-Pakete installiert und geladen werden. Diese Schritte können bei Bedarf überprungen werden.
+
 #I-Graph Installation
-install.packages("igraph")
-# installiert das Paket igraph
-install.packages("igraphdata")
-# installiert das Paket igraphdata
-library("igraph")
-# lädt das Paket "igraph" zum Verwenden
-?igraph
-# liefert die Hilfefunktion für igraph
+install.packages("igraph") # installiert das Paket igraph
+install.packages("igraphdata") # installiert das Paket igraphdata
+library("igraph") # lädt das Paket "igraph" zum Verwenden
+?igraph # liefert die Hilfefunktion für igraph
 
 
 #################################
 #####Unterstützernetzwerk Männer
+
+# Die Edge- und Nodelist werden direkt aus dem GitHub Verzeichnis ausgelesen.
 support <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/EdgelistMenSupport.csv", header=T, as.is=T, sep = ",")
 # lädt die edgelist aus github in der working directory. Auf Trennzeichen achten!
 nodes <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/NodelistMenSupport.csv", header=T, as.is=T, sep = ",")
 # lädt die Nodelist aus github in die working direcotry
 
-head(support)
-# überprüfen von Edge- und Nodelist in R
-hties <-as.matrix(support)
-# Umwandlung der Edgelist in eine Matrix
-support <- graph_from_data_frame(d=hties, vertices=nodes, directed=T)
-# Kombination der Edge- und Nodelist in ein igraph-Objekt
+head(support)# überprüfen von Edge- und Nodelist in R
+hties <-as.matrix(support)# Umwandlung der Edgelist in eine Matrix
+support <- graph_from_data_frame(d=hties, vertices=nodes, directed=T)# Kombination der Edge- und Nodelist in ein igraph-Objekt
 support #zeigt das igraph-Objekt an
-edge_attr(support)
-# zeigt die Verteilung des Attributs "weight" an.
-vertex_attr(support)
-# zeigt die Verteilung der Vertex-Attribute an.
+edge_attr(support)# zeigt die Verteilung des Attributs "weight" an.
+vertex_attr(support)# zeigt die Verteilung der Vertex-Attribute an.
 class(support)#Test, ob ein igraph-Objekt vorliegt
 
 ######Visualisierung Support-Netzwerk#
-#einfache Visualisierung
-plot(support, layout = layout_with_kk, vertex.frame.color="grey", edge.arrow.size=0.1, edge.curved=0.8, vertex.label.dist=0, vertex.label.degree=3, vertex.label.cex=.6, vertex.label.font=1, vertex.label.color="dimgrey", vertex.size=dh*2, , edge.lty="solid")
 
+#Dieser Befehl wird ganz am Ende ausgeführt. Durch ihn wird das Netzwerk visualisiert.
+plot(support, layout = layout_with_kk, main="Unterstützernetzwerk Männermannschaft", sub="Formen der Unterstützerbeziehungen zwischen Spielern und Alteri", vertex.frame.color="grey", edge.arrow.size=0.1, edge.curved=0.8, vertex.label.dist=0, vertex.label.degree=3, vertex.label.cex=.6, vertex.label.font=1, vertex.label.color="dimgrey", vertex.size=dh*2, , edge.lty="solid")
 
-#Überschrift verschönern
+#Dieser Befehl wird nach der Visualisierung ausgeführt. Mit ihm kann nach dem Visualisieren des Netzwerks die Überschrift verschönert werden.
 title("Unterstützernetzwerk Männermannschaft", cex.main = 1, font.main= 4, col.main= "dimgrey")
 
 #NURERKLÄRUNG:
@@ -45,7 +43,7 @@ title("Unterstützernetzwerk Männermannschaft", cex.main = 1, font.main= 4, col
 #vertex.label.family="Helvetica" # gibt die Schriftart des Knotens an
 #vertex.label.font=2 # gibt an, welcher Schriftschnitt verwendet wird.
 
-#schönere Visualisierung mit visNetwork
+#Mithilfe dieses Pakets: schönere Visualisierung mit visNetwork (NUR BEI BEDARF)
 library(visNetwork)
 ?visNetwork # Mit dem Befehl visIgraph() lassen sich bereits vorhandenen igraph-Objekte visualisieren. Mehr Info hier: http://datastorm-open.github.io/visNetwork/
 visIgraph(support, layout = "layout_with_kk")
@@ -55,7 +53,6 @@ visIgraph(support, layout = "layout_with_fr")
 visIgraph(support, layout = "layout_nicely")
 
 #Ausrechnen der Degrees für Größe der Knoten
-
 dh<-degree(support)
 dh
 
@@ -64,71 +61,55 @@ Frauen<-V(support)[sex=="w"] #wählt alle Knoten aus, die das Knoten-Attribut $s
 Frauen
 V(support)[Frauen]$color="maroon1" #weist allen Werten Weiblich die Farbe "maroon1" zu
 
-Men<-V(support)[sex=="m"]#wählt alle Knoten aus, die das Knotenattribut §sex gleich "m" haben
+Men<-V(support)[sex=="m"]#wählt alle Knoten aus, die das Knotenattribut $sex gleich "m" haben
 Men
 V(support)[Men]$color="skyblue1"
 
 #Knoten verschiedene Formen zuweisen je nach Spieler/Unterstützer
-Spieler<-V(support)[person=="Player"] #wählt alle Knoten aus, die das Knoten-Attribut §function gleich "player" haben
+Spieler<-V(support)[person=="Player"] #wählt alle Knoten aus, die das Knoten-Attribut $person gleich "player" haben
 Spieler
 V(support)[Spieler]$shape="circle" #weist allen ausgewählten Knoten die §Form gleich "circle" zu
 
-Bekannte<-V(support)[person=="Friend"] #wählt alle Knoten aus, die das Knotenattribut §function gleich "friend" haben
+Bekannte<-V(support)[person=="Friend"] #wählt alle Knoten aus, die das Knotenattribut $person gleich "friend" haben
 Bekannte
 V(support) [Bekannte]$shape="square"
 
 ## Kantenattribute festlegen
 #NUR FÜR EDGELIST, IN DER DER SUPPORT NUR EINE ZEILE UMFASST Edges einfärben je nach Unterstützerform#
-Instrumental<- E(support)[support == "1"]
-# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $instrumental gesetzt haben
+Instrumental<- E(support)[support == "1"]# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $instrumental gesetzt haben
 Instrumental
-E(support)[Instrumental]$color = "yellow"
-# weist allen Werten von Instrumental die Farbe "yellow" zu.
+E(support)[Instrumental]$color = "yellow" # weist allen Werten von Instrumental die Farbe "yellow" zu.
 
-Medical<- E(support)[support == "2"]
-# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $medical gesetzt haben
+Medical<- E(support)[support == "2"]# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $medical gesetzt haben
 Medical
-E(support)[Medical]$color = "red"
-# weist allen Werten von Medizinisch die Farbe "red" zu.
+E(support)[Medical]$color = "red"# weist allen Werten von Medizinisch die Farbe "red" zu.
 
-Financial<- E(support)[support == "3"]
-# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $financial gesetzt haben
+Financial<- E(support)[support == "3"]# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $financial gesetzt haben
 Financial
-E(support)[Financial]$color = "orange"
-# weist allen Werten von Finanziell die Farbe "orange" zu.
+E(support)[Financial]$color = "orange" # weist allen Werten von Finanziell die Farbe "orange" zu.
 
-Emotional<- E(support)[support == "4"]
-# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $medical gesetzt haben
+Emotional<- E(support)[support == "4"]# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $medical gesetzt haben
 Emotional
-E(support)[Emotional]$color = "tomato"
-# weist allen Werten von Medizinisch die Farbe "red" zu.
+E(support)[Emotional]$color = "tomato"# weist allen Werten von Medizinisch die Farbe "red" zu.
 
 #NUR FÜR EDGELIST, IN DER SUPPORT MEHRERE ZEILEN UMFASST Edges einfärben je nach Unterstützerform#
-Instrumental<- E(support)[instrumental == "1"]
-# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $instrumental gesetzt haben
+Instrumental<- E(support)[instrumental == "1"]# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $instrumental gesetzt haben
 Instrumental
-E(support)[Instrumental]$color = "yellow"
-# weist allen Werten von Instrumental die Farbe "yellow" zu.
+E(support)[Instrumental]$color = "yellow"# weist allen Werten von Instrumental die Farbe "yellow" zu.
 
-Medizinisch<- E(support)[medical == "1"]
-# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $medical gesetzt haben
+Medizinisch<- E(support)[medical == "1"]# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $medical gesetzt haben
 Medizinisch
-E(support)[Medizinisch]$color = "red"
-# weist allen Werten von Medizinisch die Farbe "red" zu.
+E(support)[Medizinisch]$color = "red"# weist allen Werten von Medizinisch die Farbe "red" zu.
 
-Finanziell<- E(support)[financial == "1"]
-# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $financial gesetzt haben
+Finanziell<- E(support)[financial == "1"]# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $financial gesetzt haben
 Finanziell
-E(support)[Finanziell]$color = "orange"
-# weist allen Werten von Finanziell die Farbe "orange" zu.
+E(support)[Finanziell]$color = "orange" # weist allen Werten von Finanziell die Farbe "orange" zu.
 
-Emotional<- E(support)[emotional == "1"]
-# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $medical gesetzt haben
+Emotional<- E(support)[emotional == "1"]# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $medical gesetzt haben
 Emotional
-E(support)[Emotional]$color = "tomato"
-# weist allen Werten von Medizinisch die Farbe "red" zu.
+E(support)[Emotional]$color = "tomato"# weist allen Werten von Medizinisch die Farbe "red" zu.
 
-
+#Nur bei Bedarf:
 E(favfriend)$color="black" #färbt alle Kanten in einer Farbe ein
 
 ###### Analyse des support-Netzwerks
@@ -174,6 +155,8 @@ degree(support, mode="out", normalized = TRUE)
 
 ###############################
 #####Fav/Friend Netzwerk Männer
+
+#Die Edge- und Nodelist werden direkt aus dem GitHub Verzeichnis ausgelesen.
 favfriend <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/EdgelistMenFavFriend.csv", header=T, as.is=T, sep = ",")
 # lädt die edgelist aus github in der working directory. Auf Trennzeichen achten!
 nodes <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/NodelistMenFavFriend.csv", header=T, as.is=T, sep = ",")
@@ -192,8 +175,9 @@ vertex_attr(favfriend)
 class(favfriend)#Test, ob ein igraph-Objekt vorliegt
 
 ######Visualisierung Fav/Friend-Netzwerk#
-#einfache Visualisierung
-plot(favfriend, layout = layout_with_kk,main = "Freundschaftsnetzwerk Männermannschaft", sub="Angegebene Freunde und Lieblingsspieler innerhalb des Vereins", vertex.size=11, vertex.frame.color="grey", edge.arrow.size=.05, edge.curved=0.4, vertex.size=dh*2, vertex.label.dist=0, vertex.label.degree=3, vertex.label.cex=.6, vertex.label.font=1, vertex.label.color="dimgrey", edge.color="black")
+
+#Dieser Befehl wird ganz am Ende ausgeführt. Durch ihn wird das Netzwerk visualisiert.
+plot(favfriend, layout = layout_with_kk,main = "Freundschaftsnetzwerk Männermannschaft", sub="Angegebene Freunde und Lieblingsspieler innerhalb des Vereins", vertex.size=11, vertex.frame.color="grey", edge.arrow.size=.05, edge.curved=0.4, vertex.size=dfavfriend*2, vertex.label.dist=0, vertex.label.degree=3, vertex.label.cex=.6, vertex.label.font=1, vertex.label.color="dimgrey", edge.color="black")
 
 #NURERKLÄRUNG:
 #VERTEX LABELS schöner machen
@@ -203,7 +187,7 @@ plot(favfriend, layout = layout_with_kk,main = "Freundschaftsnetzwerk Männerman
 #vertex.label.family="Helvetica" # gibt die Schriftart des Knotens an
 #vertex.label.font=2 # gibt an, welcher Schriftschnitt verwendet wird.
 
-#schönere Visualisierung mit visNetwork
+#Mit diesem Paket kann eine schönere Visualisierung erzielt werden: schönere Visualisierung mit visNetwork (Nur bei Bedarf!)
 library(visNetwork)
 ?visNetwork # Mit dem Befehl visIgraph() lassen sich bereits vorhandenen igraph-Objekte visualisieren. Mehr Info hier: http://datastorm-open.github.io/visNetwork/
 visIgraph(favfriend, layout = "layout_with_kk")
@@ -213,8 +197,8 @@ visIgraph(favfriend, layout = "layout_with_fr")
 visIgraph(favfriend, layout = "layout_nicely")
 
 ## Vertexattribute festlegen
-dh<-degree(favfriend)
-dh
+dfavfriend<-degree(favfriend)
+dfavfriend
 
 #Knoten einfärben je nach männlich/weiblich
 Frauen<-V(favfriend)[sex=="w"] #wählt alle Knoten aus, die das Knoten-Attribut $sex gleich "w" haben
@@ -236,21 +220,17 @@ V(favfriend) [Bekannte]$shape="square"
 
 ### Kantenattribute festlegen
 #Edges Form je nach Art der Beziehung bestimmen#
-Freunde<- E(favfriend)[friendship == "1"]
-# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $friendship gesetzt haben
+Freunde<- E(favfriend)[friendship == "1"]# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $friendship gesetzt haben
 Freunde
 E(favfriend)[Freunde]$lty = "dotted"# weist allen Werten von Freunde die Form "dotted" zu.
 
 
-Favoriten<- E(favfriend)[favorite == "1"]
-# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $favorite gesetzt haben
+Favoriten<- E(favfriend)[favorite == "1"]# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $favorite gesetzt haben
 Favoriten
-E(favfriend)[Favoriten]$lty = "solid"
-# weist allen Werten von Favoriten die Form solid zu.
+E(favfriend)[Favoriten]$lty = "solid"# weist allen Werten von Favoriten die Form solid zu.
 
+#Nur bei Bedarf!:
 E(favfriend)$color="black" #färbt alle Kanten in einer Farbe ein
-
-
 
 ##### Analyse des fav/friend-Netzwerks
 betweenness(favfriend, directed = TRUE)
