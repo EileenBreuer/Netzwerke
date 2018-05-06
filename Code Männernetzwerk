@@ -3,13 +3,10 @@ install.packages("igraph")
 # installiert das Paket igraph
 install.packages("igraphdata")
 # installiert das Paket igraphdata
-
 library("igraph")
 # lädt das Paket "igraph" zum Verwenden
-
 ?igraph
 # liefert die Hilfefunktion für igraph
-
 
 
 #################################
@@ -21,27 +18,24 @@ nodes <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/mast
 
 head(support)
 # überprüfen von Edge- und Nodelist in R
-
 hties <-as.matrix(support)
 # Umwandlung der Edgelist in eine Matrix
-
 support <- graph_from_data_frame(d=hties, vertices=nodes, directed=T)
 # Kombination der Edge- und Nodelist in ein igraph-Objekt
-
 support #zeigt das igraph-Objekt an
-
 edge_attr(support)
 # zeigt die Verteilung des Attributs "weight" an.
 vertex_attr(support)
 # zeigt die Verteilung der Vertex-Attribute an.
+class(support)#Test, ob ein igraph-Objekt vorliegt
 
-class(help)#Test, ob ein igraph-Objekt vorliegt
-
-#Visualisierung Support-Netzwerk#
-
-
+######Visualisierung Support-Netzwerk#
 #einfache Visualisierung
-plot(support, layout = layout_with_kk,layout=layout_nicely, main = "Unterstützernetzwerk Männermannschaft", sub="Formen der Unterstützung zwischen den Spielern und den angegebenen Alteri", vertex.size=11, vertex.frame.color="grey", edge.arrow.size=.1, edge.curved=.4, vertex.label.dist=0, vertex.label.degree=3, vertex.label.cex=.6, vertex.label.family="Helvetica", vertex.label.font=1, vertex.label.color="dimgrey")
+plot(support, layout = layout_with_kk, vertex.frame.color="grey", edge.arrow.size=0.1, edge.curved=0.8, vertex.label.dist=0, vertex.label.degree=3, vertex.label.cex=.6, vertex.label.font=1, vertex.label.color="dimgrey", vertex.size=dh*2, , edge.lty="solid")
+
+
+#Überschrift verschönern
+title("Unterstützernetzwerk Männermannschaft", cex.main = 1, font.main= 4, col.main= "dimgrey")
 
 #NURERKLÄRUNG:
 #VERTEX LABELS schöner machen
@@ -53,18 +47,17 @@ plot(support, layout = layout_with_kk,layout=layout_nicely, main = "Unterstütze
 
 #schönere Visualisierung mit visNetwork
 library(visNetwork)
-?visNetwork
-
-# Mit dem Befehl visIgraph() lassen sich bereits vorhandenen igraph-Objekte visualisieren. Mehr Info hier: http://datastorm-open.github.io/visNetwork/
-
+?visNetwork # Mit dem Befehl visIgraph() lassen sich bereits vorhandenen igraph-Objekte visualisieren. Mehr Info hier: http://datastorm-open.github.io/visNetwork/
 visIgraph(support, layout = "layout_with_kk")
 # oder auch:
 visIgraph(support, layout = "layout_in_circle")
 visIgraph(support, layout = "layout_with_fr")
 visIgraph(support, layout = "layout_nicely")
 
-####### Vertexattribute festlegen
-V(support)$size = hd
+#Ausrechnen der Degrees für Größe der Knoten
+
+dh<-degree(support)
+dh
 
 #Knoten einfärben je nach männlich/weiblich
 Frauen<-V(support)[sex=="w"] #wählt alle Knoten aus, die das Knoten-Attribut $sex gleich "w" haben
@@ -84,12 +77,7 @@ Bekannte<-V(support)[person=="Friend"] #wählt alle Knoten aus, die das Knotenat
 Bekannte
 V(support) [Bekannte]$shape="square"
 
-###### Kantenattribute
-E(support)$arrow.size <- .1
-E(support)$width <- E(support)$weight/2 # legt das Kantengewicht fest
-E(support)$curved=.4
-
-
+## Kantenattribute festlegen
 #NUR FÜR EDGELIST, IN DER DER SUPPORT NUR EINE ZEILE UMFASST Edges einfärben je nach Unterstützerform#
 Instrumental<- E(support)[support == "1"]
 # wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $instrumental gesetzt haben
@@ -114,7 +102,6 @@ Emotional<- E(support)[support == "4"]
 Emotional
 E(support)[Emotional]$color = "tomato"
 # weist allen Werten von Medizinisch die Farbe "red" zu.
-
 
 #NUR FÜR EDGELIST, IN DER SUPPORT MEHRERE ZEILEN UMFASST Edges einfärben je nach Unterstützerform#
 Instrumental<- E(support)[instrumental == "1"]
@@ -141,53 +128,40 @@ Emotional
 E(support)[Emotional]$color = "tomato"
 # weist allen Werten von Medizinisch die Farbe "red" zu.
 
+
 E(favfriend)$color="black" #färbt alle Kanten in einer Farbe ein
 
-
-
-# Analyse des support-Netzwerks
+###### Analyse des support-Netzwerks
 
 betweenness(support, directed = TRUE)
 # Spieler A gleich höchste mit 6
-
 closeness (support, mode ="out")
 #gibt es nicht, weil unverbunden
-
 # Anzahl	der	Dyaden im Netzwerk "Support-Männer"
 dyad.census(support)
 #  2 Mutuelle, 74 asymetrische, 1005 null
-
 # Anzahl und Art der Triaden im Netzwerk "Männer" 
 triad_census(support)
 # 003-14474 012-803 102-881 021D-42 021U-0 021C-3 111D-0 111U-10 030T-0 030C-0 201-0 120D-2 120U-0 120C-2 210-0 300-0
-
 #Auflistung der Knoten Attribute 
 vertex_attr(support)
-
 # Anzahl der Componenten: 52
 components(support)
 #sind diese Componenten verbunden? FALSE(nein)
 is_connected(support)
-
 # Durchmesser des Netzwerks: 13 (Schritte maximal von einem zum anderen Ende)
 diameter(support)
-
 # Pfaddistanz des Netzwerks: 1,327 (Schritte durchschnittlich von einem zum anderen Ende)
 mean_distance(support)
-
 # Dichte des Netzwerks: 3% (fast 4) (% der Möglichen Beziehungen sind realisiert)
 edge_density(support)
-
 # Anzahl der Cluster: 11 ("Kleingruppen")
 cluster_walktrap(support)
-
 #Anzeigen der Cluster im Bild
 gc <- cluster_walktrap(support)
 modularity(gc)
 membership(gc)
 plot(gc, support, edge.arrow.size = 0.2)
-
-### 
 
 degree(support, mode = "out")
 # Anzeigen der Outdegrees pro Akteur des Netzwerk "MännerSupport",Spieler E und Spieler C höchsten Outdegree
@@ -204,98 +178,108 @@ favfriend <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/
 # lädt die edgelist aus github in der working directory. Auf Trennzeichen achten!
 nodes <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/NodelistMenFavFriend.csv", header=T, as.is=T, sep = ",")
 # lädt die Nodelist aus github in die working direcotry
-
 head(favfriend)
 # überprüfen von Edge- und Nodelist in R
-
 wties <-as.matrix(favfriend)
 # Umwandlung der Edgelist in eine Matrix
-
 favfriend <- graph_from_data_frame(d=wties, vertices=nodes, directed=T)
 # Kombination der Edge- und Nodelist in ein igraph-Objekt
-
 favfriend #zeigt das irgraph-Objekt an
-
 edge_attr(favfriend)
 # zeigt die Verteilung des Attributs "weight" an.
-
 vertex_attr(favfriend)
 # zeigt die Verteilung der Vertex-Attribute an.
+class(favfriend)#Test, ob ein igraph-Objekt vorliegt
 
-class(help)#Test, ob ein igraph-Objekt vorliegt
+######Visualisierung Fav/Friend-Netzwerk#
+#einfache Visualisierung
+plot(favfriend, layout = layout_with_kk,main = "Freundschaftsnetzwerk Männermannschaft", sub="Angegebene Freunde und Lieblingsspieler innerhalb des Vereins", vertex.size=11, vertex.frame.color="grey", edge.arrow.size=.05, edge.curved=0.4, vertex.size=dh*2, vertex.label.dist=0, vertex.label.degree=3, vertex.label.cex=.6, vertex.label.font=1, vertex.label.color="dimgrey", edge.color="black")
 
-#Visualisierung Fav/Friend-Netzwerk#
+#NURERKLÄRUNG:
+#VERTEX LABELS schöner machen
+#vertex.label.dist=0 # gibt an, wie weit der Label vom Knoten entfernt platziert werden soll
+#vertex.label.degree=3 # gibt an, in welchem Winkel der Label zum Knoten gesetzt wird
+#vertex.label.cex=.8 # gibt die Größe des Labels an
+#vertex.label.family="Helvetica" # gibt die Schriftart des Knotens an
+#vertex.label.font=2 # gibt an, welcher Schriftschnitt verwendet wird.
 
-E(favfriend)$width <- E(favfriend)$weight*3 # multipliziert die Gewicht mit dem Faktor 2, daher werden diese auch stärker visualisiert werden.
+#schönere Visualisierung mit visNetwork
+library(visNetwork)
+?visNetwork # Mit dem Befehl visIgraph() lassen sich bereits vorhandenen igraph-Objekte visualisieren. Mehr Info hier: http://datastorm-open.github.io/visNetwork/
+visIgraph(favfriend, layout = "layout_with_kk")
+# oder auch:
+visIgraph(favfriend, layout = "layout_in_circle")
+visIgraph(favfriend, layout = "layout_with_fr")
+visIgraph(favfriend, layout = "layout_nicely")
 
-colrs <- c("yellow, red") #c definiert Farbenvektor
-#definiert das Farbspektrum, der verwendeten Farben und legt diese in einem neuen Vector colrs fest. Da wir wissen, dass wir bei §sex nur zwei Werte haben (männlich, weiblich) brauchen wir auch zwei Werte. Die direkten Farbpaletten sind hier hinterlegt: http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf.
-E(favfriend)$color <- colrs[E(favfriend)$favorite]
-E(favfriend)$color<- colrs[E(favfriend)$friendship]
-# weist dem Vertex-Attribut color die Funktion colrs zu, die wir vorher mit zwei Farben definiert haben.
-plot(favfriend,layout=layout_with_kk, layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.6,main="Freundschaftsnetzwerk Männermanschaft")
+## Vertexattribute festlegen
+dh<-degree(favfriend)
+dh
 
-####Edges Form je nach Art der Beziehung bestimmen#
+#Knoten einfärben je nach männlich/weiblich
+Frauen<-V(favfriend)[sex=="w"] #wählt alle Knoten aus, die das Knoten-Attribut $sex gleich "w" haben
+Frauen
+V(favfriend)[Frauen]$color="maroon1" #weist allen Werten Weiblich die Farbe "maroon1" zu
 
+Men<-V(favfriend)[sex=="m"]#wählt alle Knoten aus, die das Knotenattribut §sex gleich "m" haben
+Men
+V(favfriend)[Men]$color="skyblue1"
+
+#Knoten verschiedene Formen zuweisen je nach Spieler/Unterstützer
+Spieler<-V(favfriend)[person=="Player"] #wählt alle Knoten aus, die das Knoten-Attribut §function gleich "player" haben
+Spieler
+V(favfriend)[Spieler]$shape="circle" #weist allen ausgewählten Knoten die §Form gleich "circle" zu
+
+Bekannte<-V(favfriend)[person=="Friend"] #wählt alle Knoten aus, die das Knotenattribut §function gleich "friend" haben
+Bekannte
+V(favfriend) [Bekannte]$shape="square"
+
+### Kantenattribute festlegen
+#Edges Form je nach Art der Beziehung bestimmen#
 Freunde<- E(favfriend)[friendship == "1"]
-# wöhlt alle Knoten aus, die das Edge-Attribut "1" bei $favorite gesetzt haben
+# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $friendship gesetzt haben
 Freunde
-E(favfriend)[Freunde]$color = "yellow"
+E(favfriend)[Freunde]$lty = "dotted"# weist allen Werten von Freunde die Form "dotted" zu.
 
-# weist allen Werten von Favoriten die Farbe "red" zu.
+
 Favoriten<- E(favfriend)[favorite == "1"]
-# wöhlt alle Kanten aus, die das Kanten-Attribut "1" bei $favorite gesetzt haben
+# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $favorite gesetzt haben
 Favoriten
-E(favfriend)[Favoriten]$color = "red"
-# weist allen Werten von Favoriten die Farbe "red" zu.
+E(favfriend)[Favoriten]$lty = "solid"
+# weist allen Werten von Favoriten die Form solid zu.
 
 E(favfriend)$color="black" #färbt alle Kanten in einer Farbe ein
 
 
 
-# Analyse des fav/friend-Netzwerks
-
+##### Analyse des fav/friend-Netzwerks
 betweenness(favfriend, directed = TRUE)
 # Nico höchster Wert=35,75(höchster Wert)
-
 closeness (favfriend, mode ="out")
 # geht nicht, weil nicht verbunden
-
 eigen_centrality(favfriend, directed = TRUE)
 # wie liest man das aus?
-
-### Analyse Fav/Friend-Netzwerk
-
 # Anzahl	der	Dyaden im Netzwerk "Fav/Friend-Männer"
 dyad.census(favfriend)
 # 9 mutuelle - 32 asymetrische - 130 null
-
 # Anzahl und Art der Triaden im Netzwerk "Männer" 
 # 34 mal den Out Star 021D und 4 mal eine Linie 021C
 triad_census(favfriend)
 # 003-6468 012-727 102-410 021D-91 021U-5 021C-27 111D-2 111U-34 030T-0 030C-0 201-3 120D-2 120U-1 120C-0 210-0 300-0
-
 #Auflistung der Knoten Attribute 
 vertex_attr(favfriend)
-
 # Anzahl der Componenten: 52
 components(favfriend)
 #sind diese Componenten verbunden? TRUE (ja)
 is_connected(favfriend)
-
 # Durchmesser des Netzwerks: 12 (Schritte maximal von einem zum anderen Ende)
 diameter(favfriend)
-
 # Pfaddistanz des Netzwerks: 2,29 (Schritte durchschnittlich von einem zum anderen Ende)
 mean_distance(favfriend)
-
 # Dichte des Netzwerks: 14% (fast 15) (% der Möglichen Beziehungen sind realisiert)
 edge_density(favfriend)
-
 # Anzahl der Cluster: 4 ("Kleingruppen")
 cluster_walktrap(favfriend)
-
-### 
 
 degree(favfriend, mode = "out")
 # Anzeigen der Outdegrees pro Akteur des Netzwerk "Männer", Zagros, Ruben, Max max. Outdegrees
@@ -306,26 +290,25 @@ degree(favfriend, mode="out", normalized = TRUE)
 # da es sich um mehrere Ego Netze handelt, 
 # diese Werte werden im Spielerinnen Netzwerk spannender
 
-
 #Anzeigen der Cluster im Bild
 favfriendcluster <- cluster_walktrap(favfriend)
 modularity(favfriendcluster)
 membership(favfriendcluster)
 plot(favfriendcluster, favfriend, edge.arrow.size = 0.2)
 
-
 ############################################
 #Gesamtnetzwerk erstellen->FavFriend und Support zusammen in einem
 
+###Visualisierung
 m<-support+favfriend #erstellte Teilnetzwerke einfach addieren
-plot(m, layout=layout_with_kk, layout=layout_nicely, edge.arrow.size=0.2, edge.curved=0.2)
+plot(m, layout = layout_with_kk, vertex.frame.color="grey", edge.arrow.size=0.1, edge.curved=0.8, vertex.label.dist=0, vertex.label.degree=3, vertex.label.cex=.6, vertex.label.font=1, vertex.label.color="dimgrey")
 
 # vergleichende Darstellung der beiden Teilnetze
 par(mfrow=c(1,2), mar=c(0,0,2,0))   
 plot(support, layout=layout_nicely, edge.arrow.size=0.2, main="Beziehungsnetzwerk Männermannschaft - Unterstützer")
 plot(favfriend, layout=layout_nicely, edge.arrow.size=0.2, main="Freundschaftsnetzwerk Männermmannschaft - Freunde")
 
-#Netzwerkmaße des Gesamtnetzwerks berechnen
+###Netzwerkmaße des Gesamtnetzwerks berechnen
 
 # Plotten der Cluster des Gesamtnetzwerks in Farben 
 gc <- cluster_walktrap(m)
@@ -333,38 +316,27 @@ modularity(gc)
 membership(gc)
 plot(gc, m, edge.arrow.size = 0.2)
 
-### Analyse ### Infos zum Männer-Netzwerk
-
 # Anzahl	der	Dyaden im Netzwerk "Männer"
 dyad.census(m)
 # 10 mutuelle - 102 asymetrische - 1214 null
-
 # Anzahl und Art der Triaden im Netzwerk "Männer" 
 # 34 mal den Out Star 021D und 4 mal eine Linie 021C
 triad_census(m)
 # 003-6468 012-727 102-410 021D-91 021U-5 021C-27 111D-2 111U-34 030T-0 030C-0 201-3 120D-2 120U-1 120C-0 210-0 300-0
-
 #Auflistung der Knoten Attribute 
 vertex_attr(m)
-
 # Anzahl der Componenten: 52
 components(m)
 #sind diese Componenten verbunden? TRUE (ja)
 is_connected(m)
-
 # Durchmesser des Netzwerks: 6 (Schritte maximal von einem zum anderen Ende)
 diameter(m)
-
 # Pfaddistanz des Netzwerks: 2,86 (Schritte durchschnittlich von einem zum anderen Ende)
 mean_distance(m)
-
 # Dichte des Netzwerks: 4 (fast5) (% der Möglichen Beziehungen sind realisiert)
 edge_density(m)
-
 # Anzahl der Cluster: 7 ("Kleingruppen")
 cluster_walktrap(m)
-
-### 
 
 degree(m, mode = "out")
 # Anzeigen der Outdegrees pro Akteur des Netzwerk "Männer", Zagros, Ruben, Max max. Outdegrees
@@ -380,6 +352,7 @@ degree(m, mode="out", normalized = TRUE)
 ############################################
 # Ego Netzwerke der stark und wenig unterstützten Spieler erstellen
 
+###Visualisierung
 me <- subgraph<-make_ego_graph(m, order=1, c("SpielerE")) 
 me
 plot(me[[1]], edge.arrow.size=.1, layout=layout_with_kk, layout=layout_nicely, edge.curved=0.2)
