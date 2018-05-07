@@ -10,11 +10,11 @@ SpielerB,SpielerK,1,Mitspieler,0,1
 SpielerC,SpielerH,5,Mitspieler,1,0
 SpielerC,SpielerH,5,Mitspieler,0,1
 SpielerC,SpielerN,1,Mitspieler,0,1
-SpielerC,SpielerC,1,Mitspieler,0,1
+SpielerC,SpielerA,1,Mitspieler,0,1
 SpielerD,SpielerK,1,Mitspieler,1,0
 SpielerD,SpielerK,1,Mitspieler,0,1
 SpielerD,SpielerE,1,Mitspieler,0,1
-SpielerD,SpielerD,1,Mitspieler,0,1
+SpielerD,SpielerL,1,Mitspieler,0,1
 SpielerE,SpielerK,5,Bruder,1,0
 SpielerE,SpielerL,1,Mitspieler,0,1
 SpielerE,SpielerD,1,Mitspieler,0,1
