@@ -4,6 +4,8 @@
 # die Netzwerke müssen auch zuvor im Zwischenspeicher geladen sein.
 # Sie müssen die Netzwerke zuvor als variable definieren, sonst klappt die Zuordnung nicht.
 
+install.packages("igraph") # installiert das Paket igraph
+install.packages("igraphdata") # installiert das Paket igraphdata
 library("igraph")
 
 # liest favfriend netzwerk ein
@@ -18,6 +20,7 @@ support <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/ma
 nodes <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/NodelistMenSupport.csv", header=T, as.is=T, sep = ",")
 hties <-as.matrix(support) # Umwandlung der Edgelist in eine Matrix
 support <- graph_from_data_frame(d=hties, vertices=nodes, directed=T)
+support
 
 # Kombination der Edge- und Nodelist in ein GEMEINSAMES igraph-Objekt umwandeln
 
@@ -49,7 +52,7 @@ m_freunde <- plot(m, layout = layout_with_kk, main="Freunde und Bekannte")
 
 E(m)$arrow.size <- .1
 E(m)$color="black"
-E(m)$curved=.3
+E(m)$lty="solid"
 
 # Visualisierung nach degrees in Abstufung von gelb nach rot
 hd <- degree(m, mode = "all")
@@ -67,7 +70,43 @@ V(m)$label.family="Helvetica"
 V(m)$label.color="black"
 V(m)$frame.color="white"
 
+# Kantenfarbe nach Unterstützungsform und Freundschaft bestimmen
+Instrumental<- E(m)[instrumental == "1"]# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $instrumental gesetzt haben
+Instrumental
+E(m)[Instrumental]$color = "yellow"# weist allen Werten von Instrumental die Farbe "yellow" zu.
+
+Medizinisch<- E(m)[medical == "1"]# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $medical gesetzt haben
+Medizinisch
+E(m)[Medizinisch]$color = "red"# weist allen Werten von Medizinisch die Farbe "red" zu.
+
+Finanziell<- E(m)[financial == "1"]# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $financial gesetzt haben
+Finanziell
+E(m)[Finanziell]$color = "darkorange" # weist allen Werten von Finanziell die Farbe "orange" zu.
+
+Emotional<- E(m)[emotional == "1"]# wählt alle Kanten aus, die das Kanten-Attribut "1" bei $medical gesetzt haben
+Emotional
+E(m)[Emotional]$color = "firebrick3"# weist allen Werten von Medizinisch die Farbe "red" zu.
+
+Freund<- E(m)[friend=="1"] # wählt alle Kanten aus, die das Kantenattribut "1" bei friend haben
+Freund
+E(m)[Freund]$color="black" # weist allen Werten von friend=1 die Farbe black zu
+
+Favorit<- E(m)[favorite=="1"] # wählt alle Kanten aus, die das Kantenattribut "1" bei favorite haben
+Favorit
+E(m) [Favorit]$color="black" # weist allen  Werten von favorit=1 die Farbe black zu
+
 plot(m, layout = layout_with_kk, main="Gesamtnetzwerk Beziehung- und Freundschaftsnetzwerk", sub="Visualisierung nach Degrees")
+
+# Art der Beziehung nach Form der Edge festlegen
+
+Freunde<- E(m)[friendship == "1"]
+Freunde
+E(m)[Freunde]$lty = "dotted"
+
+Favoriten<- E(m)[favorite == "1"]
+Favoriten
+E(m)[Favoriten]$lty = "solid"
+
 
 # vergleichende Darstellung der beiden Teilnetze
 par(mfrow=c(1,2), mar=c(0,0,2,0))
