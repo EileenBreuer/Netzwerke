@@ -20,10 +20,10 @@ hties <-as.matrix(mg) # Umwandlung der Edgelist in eine Matrix
 mg <- graph_from_data_frame(d=hties, vertices=nodes, directed=T)
 
 # Kombination der Edge- und Nodelist in ein igraph-Objekt
-mg #zeigt das igraph-Objekt an
-edge_attr(mg) #zeigt die Verteilung des Attributs "weight" an.
-vertex_attr(mg) #zeigt die Verteilung der Vertex-Attribute an.
-class(mg) #Test, ob ein igraph-Objekt vorliegt
+mg # zeigt das igraph-Objekt an
+edge_attr(mg) # zeigt die Verteilung des Attributs "weight" an.
+vertex_attr(mg) # zeigt die Verteilung der Vertex-Attribute an.
+class(mg) # Test, ob ein igraph-Objekt vorliegt
 
 #### Visualisierung mg-Netzwerks
 
@@ -86,7 +86,7 @@ V(mg) [Bekannte]$shape="square"
 
 
 # Visualisierung nach Männern und Frauen
-ego_men_gender <- plot(mg, layout = layout_with_kk, main="UnterstÃ¼tzernetzwerk Männermannschaft", sub="Formen der Unterstützerbeziehungen zwischen Spielern und Alteri, visualisiert nach Männern und Frauen")
+ego_men_gender <- plot(mg, layout = layout_with_kk, main="Unterstützernetzwerk Männermannschaft", sub="Formen der Unterstützerbeziehungen zwischen Spielern und Alteri, visualisiert nach Männern und Frauen")
 ego_men_gender
 
 # Art der Unterstützung durch Edge-Attribute festlegen
@@ -138,6 +138,13 @@ ego_men_gender_mg <- plot(mg, layout = layout_with_kk, main="Gesamtnetzwerk Män
 
 ego_men_gender_mg
 
+# Visualisierung ohne Labels
+V(mg)$label <- NA # überschreibt alle Labels mit dem Wert "NA", der nicht angezeigt wird.
+gesamtnetzwerkmg <- plot(mg, layout = layout_with_kk, main="Gesamtnetzwerk Männermannschaft", sub="Nodes visualisiert nach Geschlecht, Edges nach Beziehungsart")
+
+# Wiederherstellung der Labels
+V(mg)$label <- V(mg)$name # weist dem Vertex-Attribut "label" wieder das Vertex-Attribut "name" zu.
+gesamtnetzwerkmg <- plot(mg, layout = layout_with_kk, main="Gesamtnetzwerk Männermannschaft", sub="Nodes visualisiert nach Geschlecht, Edges nach Beziehungsart")
 
 ###### Analyse des Gesamtnetzwerks der Männermannschaft
 
@@ -177,7 +184,7 @@ degree(mg, mode="out", normalized = TRUE)
 # Anzeigen der prozentualen (d.h. normalisierten) Outdegrees des Netzwerk "Männermg" an
 
 
-
+# ! Visualisierungsparameter erstrecken sich auch auf die folgenden Ego-Netzwerke !
 #####Egonetzwerke
 
 # Ego Netzwerke der stark und wenig unterstützten Spieler erstellen
@@ -191,7 +198,7 @@ mk<- subgraph<-make_ego_graph(mg, order=1, c("SpielerK"))
 mk
 plot(mk[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely, main="Egonetzwerk Spieler K")
 
-#erstellt Egonetzwerk von Knoten mit ID 18, zeigt alle Knoten an, die innerhalb eines Schrittes mit 18 verbunden sind
+# erstellt Egonetzwerk von Knoten mit ID 18, zeigt alle Knoten an, die innerhalb eines Schrittes mit 18 verbunden sind
 
 mm <- subgraph<-make_ego_graph(mg, order=1, c("SpielerM"))
 mm
