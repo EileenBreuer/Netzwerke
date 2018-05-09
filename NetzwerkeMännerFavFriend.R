@@ -64,6 +64,14 @@ fav_freunde <- plot(favfriend, layout = layout_with_kk, main="Freunde und Bekann
 
 Freunde<- E(favfriend)[friendship == "1"]
 Freunde
+E(favfriend)[Freunde]$color = "snow3"
+
+Favoriten<- E(favfriend)[favorite == "1"]
+Favoriten
+E(favfriend)[Favoriten]$color = "black"
+
+Freunde<- E(favfriend)[friendship == "1"]
+Freunde
 E(favfriend)[Freunde]$lty = "dotted"
 
 Favoriten<- E(favfriend)[favorite == "1"]
