@@ -162,7 +162,7 @@ triad_census(mg)
 vertex_attr(mg)
 # Anzahl der Componenten: 52
 components(mg)
-# sind diese Componenten verbunden? FALSE(true)
+# sind diese Componenten verbunden? (true)
 is_connected(mg)
 # Durchmesser des Netzwerks: 13 (Schritte maximal von einem zum anderen Ende)
 diameter(mg)
@@ -192,21 +192,21 @@ degree(mg, mode="out", normalized = TRUE)
 # Visualisierung
 me <- subgraph<-make_ego_graph(mg, order=1, c("SpielerE"))
 me #ignorieren Sie die Fehlermeldung hier.
-plot(me[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely, main="Egonetzwerk Spieler E")
+plot(me[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely, main="Ego Spieler E")
 
 mk<- subgraph<-make_ego_graph(mg, order=1, c("SpielerK"))
 mk
-plot(mk[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely, main="Egonetzwerk Spieler K")
+plot(mk[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely, main="Ego Spieler K")
 
 # erstellt Egonetzwerk von Knoten mit ID 18, zeigt alle Knoten an, die innerhalb eines Schrittes mit 18 verbunden sind
 
 mm <- subgraph<-make_ego_graph(mg, order=1, c("SpielerM"))
 mm
-plot(mm[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely, main="Egonetzwerk Spieler M")
+plot(mm[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely, main="Ego Spieler M")
 
 mb <- subgraph<-make_ego_graph(mg, order=1, c("SpielerB"))
 mb
-plot(mb[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely, main="Egonetzwerk Spieler B")
+plot(mb[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely, main="Ego Spieler B")
 
 # vergleichende Darstellung der vier MÃ¤nner
 par(mfrow=c(2,2), mar=c(0,0,2,0))
@@ -214,3 +214,4 @@ plot(me[[1]], layout=layout_with_kk, main="Spieler E")
 plot(mk[[1]], layout=layout_with_kk, main="Spieler K")
 plot(mm[[1]], layout=layout_with_kk, main="Spieler M")
 plot(mb[[1]], layout=layout_with_kk, main="Spieler B")
+

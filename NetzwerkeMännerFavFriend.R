@@ -82,7 +82,7 @@ E(favfriend)[Favoriten]$lty = "solid"
 fav_edges <- plot(favfriend, layout = layout_with_kk, main="Freundschaftsbzeziehungen")
 
 # Gesamtvisualisierung nur mit igraph
-men_friends_all <- plot(favfriend, layout = layout_with_kk, vertex.size=hd, vertex.color=ired, main="Freundschaftsnetzwerk Männermannschaft", sub="Nodes visualisiert nach Degree, Edges nach Beziehungsart")
+men_friends_all <- plot(favfriend, layout = layout_with_kk, vertex.size=hd, vertex.color=ired, main="Freundschaftsnetzwerk Männermannschaft", sub="Nodes:  nach Degree - Edges: nach Beziehungsart")
 
 ######### Analyse des fav/friend-Netzwerks
 betweenness(favfriend, directed = TRUE)
@@ -106,7 +106,7 @@ components(favfriend)
 is_connected(favfriend)
 #sind diese Componenten verbunden? TRUE (ja)
 diameter(favfriend)
-# Durchmesser des Netzwerks: 12 (Schritte maximal von einem zum anderen Ende)
+# Durchmesser des Netzwerks: 9 (Schritte maximal von einem zum anderen Ende)
 mean_distance(favfriend)
 # Pfaddistanz des Netzwerks: 2,18 (Schritte durchschnittlich von einem zum anderen Ende)
 edge_density(favfriend)

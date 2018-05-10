@@ -27,11 +27,10 @@ class(support) #Test, ob ein igraph-Objekt vorliegt
 
 #### Visualisierung Support-Netzwerks
 
-#vertex.frame.color="grey", edge.arrow.size=0.1, edge.curved=0.3, vertex.label.dist=1, vertex.label.degree=0, vertex.label.cex=.4, vertex.label.font=1, vertex.label.color="dimgrey", vertex.size=dh*2, edge.lty="solid")
-
 # Kantenattribute dauerhaft festlegen
 E(support)$arrow.size <- .1
 E(support)$color="black"
+# E(support)$width <- E(support)$weight/2 # bei Bedarf der Darstellung der Beziehungsstärke hinzufügen
 
 # Visualisierung nach degrees in Abstufung von gelb nach rot
 hd <- degree(support, mode = "all")
@@ -94,7 +93,7 @@ V(support) [Bekannte]$shape="square"
 
 
 # Visualisierung nach Männern und Frauen
-ego_men_gender <- plot(support, layout = layout_with_kk, main="UnterstÃ¼tzernetzwerk Männermannschaft", sub="Formen der Unterstützerbeziehungen zwischen Spielern und Alteri, visualisiert nach Männern und Frauen")
+ego_men_gender <- plot(support, layout = layout_with_kk, main="Unterstuetzernetzwerk Männermannschaft", sub="Formen der Unterstützerbeziehungen zwischen Spielern und Alteri, visualisiert nach Männern und Frauen")
 ego_men_gender
 
 # Art der Unterstützung durch Edge-Attribute festlegen
@@ -119,7 +118,7 @@ E(support)[Emotional]$color = "firebrick3"# weist allen Werten von Medizinisch d
 # Visualisierung nach Männern und Frauen
 # Visualisierung nach Art der Unterstützung
 
-ego_men_gender_support <- plot(support, layout = layout_with_kk, main="Unterstützernetzwerk Männermannschaft", sub="Nodes visualisiert nach Geschlecht, Edges nach Art der Unterstützung")
+ego_men_gender_support <- plot(support, layout = layout_with_kk, main="Supportnetzwerk Männermannschaft", sub="Nodes: nach Geschlecht und Art - Edges: nach Art der Unterstützung")
 
 ego_men_gender_support
 
@@ -131,10 +130,10 @@ closeness (support, mode ="out")
 #gibt es nicht, weil unverbunden
 # Anzahl	der	Dyaden im Netzwerk "Support-MÃ¤nner"
 dyad.census(support)
-#  2 Mutuelle, 74 asymetrische, 1005 null
+#  2 Mutuelle, 77 asymetrische, 1002 null
 # Anzahl und Art der Triaden im Netzwerk "MÃ¤nner" 
 triad_census(support)
-# 003-14474 012-803 102-881 021D-42 021U-0 021C-3 111D-0 111U-10 030T-0 030C-0 201-0 120D-2 120U-0 120C-2 210-0 300-0
+# 003-14474 012-760 102-924 021D-42 021U-0 021C-3 111D-0 111U-10 030T-0 030C-0 201-0 120D-0 120U-2 120C-0 210-0 300-0
 #Auflistung der Knoten Attribute 
 vertex_attr(support)
 # Anzahl der Componenten: 52
