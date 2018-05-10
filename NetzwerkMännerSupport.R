@@ -56,19 +56,6 @@ plot(support, layout = layout_with_kk, main="Unterstützernetzwerk Männermannscha
 # Visualisierung mit VisNetwork
 # Der Vorteil ist, dass hier die Netzwerke teilweise besser zu erkennen sind. Ausserdem lÃ¤sst sich das Netzwerk auch leicht als Website sichern:
 
-library(visNetwork)
-#erstellt das VisNetwork-Objekt, basierend auf Kamada-Kawai
-men_support <- visIgraph(support, layout = "layout_with_kk")
-# ruft den Plot auf
-men_support
-# Speziell für HTML-Ausgaben: fÃ¼gt dem Netzwerk noch Navigationshilfen hinzu:
-men_support_int <- visIgraph(support, layout = "layout_with_kk")%>%
-  visInteraction(navigationButtons = TRUE)
-men_support_int
-
-# exportiert das Netzwerk als Datei zur weiteren Verwendung im Web in ihrer Working-Directory
-visSave(men_support, file = "men_support.html", background = "black")
-
 #Geschlechtsbeziehungen offenlegen
 
 #Knoten einfärben je nach männlich/weiblich
@@ -121,6 +108,18 @@ E(support)[Emotional]$color = "firebrick3"# weist allen Werten von Medizinisch d
 ego_men_gender_support <- plot(support, layout = layout_with_kk, main="Supportnetzwerk Männermannschaft", sub="Nodes: nach Geschlecht und Art - Edges: nach Art der Unterstützung")
 
 ego_men_gender_support
+
+#Visualisierung ohne Überschriften
+ego_men_gender_support <- plot(support, layout = layout_with_kk)
+
+
+# Visualisierung ohne Labels
+V(support)$label <- NA # überschreibt alle Labels mit dem Wert "NA", der nicht angezeigt wird.
+supportNA<- plot(support, layout = layout_with_kk, main="Unterstützernetzwerk Männermannschaft", sub="Nodes: nach Geschlecht - Edges: nach Unterstützungsart")
+
+# Wiederherstellung der Labels
+V(support)$label <- V(support)$name # weist dem Vertex-Attribut "label" wieder das Vertex-Attribut "name" zu.
+support <- plot(support, layout = layout_with_kk, main="Unterstützernetzwerk Männermannschaft", sub="Nodes: nach Degree - Edges: nach Unterstützungsart")
 
 ###### Analyse des support-Netzwerks
 

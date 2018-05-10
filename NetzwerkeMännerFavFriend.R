@@ -9,8 +9,6 @@ install.packages("igraphdata") # installiert das Paket igraphdata
 library("igraph") # lÃ¤dt das Paket "igraph" zum Verwenden
 ?igraph # liefert die Hilfefunktion für igraph
 
-library("visNetwork")
-
 ###Fav/Friend Netzwerk Männer einlesen
 
 favfriend <- read.csv("https://raw.githubusercontent.com/EileenBreuer/Netzwerke/master/EdgelistMenFavFriend.csv", header=T, as.is=T, sep = ",")
@@ -52,11 +50,11 @@ fav_degree <- plot(favfriend, layout = layout_with_kk, main="Freundschaftsnetzwe
 # Knotenform nach Typ festlegen
 Spieler<-V(favfriend)[person=="Player"]
 Spieler
-V(favfriend)[Spieler]$shape="square"
+V(favfriend)[Spieler]$shape="circle"
 
 Bekannte<-V(favfriend)[person=="Friend"]
 Bekannte
-V(favfriend) [Bekannte]$shape="circle"
+V(favfriend) [Bekannte]$shape="square"
 
 fav_freunde <- plot(favfriend, layout = layout_with_kk, main="Freunde und Bekannte")
 
@@ -64,25 +62,30 @@ fav_freunde <- plot(favfriend, layout = layout_with_kk, main="Freunde und Bekann
 
 Freunde<- E(favfriend)[friendship == "1"]
 Freunde
-E(favfriend)[Freunde]$color = "snow3"
+E(favfriend)[Freunde]$lty = "solid"
 
 Favoriten<- E(favfriend)[favorite == "1"]
 Favoriten
-E(favfriend)[Favoriten]$color = "black"
-
-Freunde<- E(favfriend)[friendship == "1"]
-Freunde
-E(favfriend)[Freunde]$lty = "dotted"
-
-Favoriten<- E(favfriend)[favorite == "1"]
-Favoriten
-E(favfriend)[Favoriten]$lty = "solid"
+E(favfriend)[Favoriten]$lty = "dotted"
 
 # Visualisierung der Freundschaftsbeziehuungen
 fav_edges <- plot(favfriend, layout = layout_with_kk, main="Freundschaftsbzeziehungen")
 
 # Gesamtvisualisierung nur mit igraph
 men_friends_all <- plot(favfriend, layout = layout_with_kk, vertex.size=hd, vertex.color=ired, main="Freundschaftsnetzwerk Männermannschaft", sub="Nodes:  nach Degree - Edges: nach Beziehungsart")
+
+#Gesamtvisualisierung ohne Überschriften
+# Gesamtvisualisierung nur mit igraph
+men_friends_all <- plot(favfriend, layout = layout_with_kk, vertex.size=hd, vertex.color=ired)
+
+
+# Visualisierung ohne Labels
+V(favfriend)$label <- NA # überschreibt alle Labels mit dem Wert "NA", der nicht angezeigt wird.
+favfriendNA<- plot(favfriend, layout = layout_with_kk, main="Freundschaftsnetzwerk Männermannschaft", sub="Nodes: nach Degree - Edges: nach Beziehungsart")
+
+# Wiederherstellung der Labels
+V(favfriend)$label <- V(mg)$name # weist dem Vertex-Attribut "label" wieder das Vertex-Attribut "name" zu.
+favfriend <- plot(favfriend, layout = layout_with_kk, main="Freundschaftsnetzwerk Männermannschaft", sub="Nodes: nach Degree - Edges: nach Beziehungsart")
 
 ######### Analyse des fav/friend-Netzwerks
 betweenness(favfriend, directed = TRUE)

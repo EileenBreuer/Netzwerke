@@ -45,23 +45,6 @@ V(mg)$frame.color="white"
 
 plot(mg, layout = layout_with_kk, main="Gesamtnetzwerk Männermannschaft", sub="Formen der Beziehungen zwischen Spielern und Alteri")
 
-
-# Visualisierung mit VisNetwork
-# Der Vorteil ist, dass hier die Netzwerke teilweise besser zu erkennen sind. Ausserdem lÃ¤sst sich das Netzwerk auch leicht als Website sichern:
-
-library(visNetwork)
-#erstellt das VisNetwork-Objekt, basierend auf Kamada-Kawai
-men_mg <- visIgraph(mg, layout = "layout_with_kk")
-# ruft den Plot auf
-men_mg
-# Speziell für HTML-Ausgaben: fÃ¼gt dem Netzwerk noch Navigationshilfen hinzu:
-men_mg_int <- visIgraph(mg, layout = "layout_with_kk")%>%
-  visInteraction(navigationButtons = TRUE)
-men_mg_int
-
-# exportiert das Netzwerk als Datei zur weiteren Verwendung im Web in ihrer Working-Directory
-visSave(men_mg, file = "men_mg.html", background = "black")
-
 #Geschlechtsbeziehungen offenlegen
 
 #Knoten einfärben je nach männlich/weiblich
@@ -114,19 +97,11 @@ men_mg
 
 Freunde<- E(mg)[friendship == "1"]
 Freunde
-E(mg)[Freunde]$color = "snow3"
+E(mg)[Freunde]$lty = "solid"
 
 Favoriten<- E(mg)[favorite == "1"]
 Favoriten
-E(mg)[Favoriten]$color = "black"
-
-Freunde<- E(mg)[friendship == "1"]
-Freunde
-E(mg)[Freunde]$lty = "dotted"
-
-Favoriten<- E(mg)[favorite == "1"]
-Favoriten
-E(mg)[Favoriten]$lty = "solid"
+E(mg)[Favoriten]$lty = "dotted"
 
 # Visualisierung der Freundschaftsbeziehuungen
 fav_edges <- plot(mg, layout = layout_with_kk, main="Freundschaftsbzeziehungen")
@@ -134,7 +109,13 @@ fav_edges <- plot(mg, layout = layout_with_kk, main="Freundschaftsbzeziehungen")
 # Visualisierung nach Männern und Frauen
 # Visualisierung nach Art der Unterstützung
 
-ego_men_gender_mg <- plot(mg, layout = layout_with_kk, main="Gesamtnetzwerk Männermannschaft", sub="Nodes visualisiert nach Geschlecht, Edges nach Beziehungsart")
+ego_men_gender_mg <- plot(mg, layout = layout_with_kk, main="Gesamtnetzwerk Männermannschaft", sub="Nodes: nach Geschlecht - Edges: nach Beziehungsart")
+
+ego_men_gender_mg
+
+# Visualisierung ohne Überschriften
+
+ego_men_gender_mg <- plot(mg, layout = layout_with_kk)
 
 ego_men_gender_mg
 
@@ -193,20 +174,24 @@ degree(mg, mode="out", normalized = TRUE)
 me <- subgraph<-make_ego_graph(mg, order=1, c("SpielerE"))
 me #ignorieren Sie die Fehlermeldung hier.
 plot(me[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely, main="Ego Spieler E")
+plot(me[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely) # Ohne Überschrift
 
 mk<- subgraph<-make_ego_graph(mg, order=1, c("SpielerK"))
 mk
 plot(mk[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely, main="Ego Spieler K")
+plot(mk[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely) # Ohne Überschriften
 
 # erstellt Egonetzwerk von Knoten mit ID 18, zeigt alle Knoten an, die innerhalb eines Schrittes mit 18 verbunden sind
 
 mm <- subgraph<-make_ego_graph(mg, order=1, c("SpielerM"))
 mm
 plot(mm[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely, main="Ego Spieler M")
+plot(mm[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely) # Ohne Überschriften
 
 mb <- subgraph<-make_ego_graph(mg, order=1, c("SpielerB"))
 mb
 plot(mb[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely, main="Ego Spieler B")
+plot(mb[[1]], edge.arrow.size=.05, layout=layout_with_kk, layout=layout_nicely) # Ohne Überschriften
 
 # vergleichende Darstellung der vier MÃ¤nner
 par(mfrow=c(2,2), mar=c(0,0,2,0))
